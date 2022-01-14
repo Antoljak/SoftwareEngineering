@@ -2,7 +2,10 @@
 ## Note-It
 A simple, quick, and easy to use note taking app hosted right on your web browser.
 
-## Members:
+## Members
 **Front-end:**  Clayton Music, Fran Luka Antoljak
 
 **Back-end:** Raul Salazar, Praveena Hariharan
+
+## Stack used
+Golang, Angular
