@@ -7,30 +7,9 @@ A simple, quick, and easy to use note taking app hosted right on your web browse
 
 **Back-end (Golang):** Raul Salazar, Praveena Hariharan
 
-##INSTRUCTIONS FOR STARTING APP 
+## Starter Code from https://github.com/Shpota/go-angular
 
-[![Build Status](https://travis-ci.com/Shpota/go-angular.svg?branch=master)](https://travis-ci.com/Shpota/go-angular)
-
-A simple web application written with Go and Angular
-===================================================
-I implemented this application while evaluating Go. 
-On the back end side, I used 
-[gorilla/mux](https://github.com/gorilla/mux) for 
-routing, [Gorm](https://github.com/jinzhu/gorm) as an 
-ORM engine and 
-[google/uuid](https://github.com/google/uuid) 
-for UUID generation. On the front end side, I used 
-[Angular 8](https://angular.io/) and 
-[Angular Material](https://material.angular.io/).
-
-![Showcase](showcase/showcase.gif)
-
-## System requirements 
-You need to have [Docker](https://www.docker.com) 
-installed in order to build and run the application.
-No additional tools required.
-
-## How to build and run
+## Build and run instructions
 1. Create a Docker network:
     ```shell script
     docker network create students-net
