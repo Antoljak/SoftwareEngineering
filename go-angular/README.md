@@ -26,13 +26,7 @@ No additional tools required.
     ```
 2. Start the DB:
     ```shell script
-    docker run \
-      -e POSTGRES_USER=go \
-      -e POSTGRES_PASSWORD=your-strong-pass \
-      -e POSTGRES_DB=go \
-      --name students-db \
-      --net=students-net \
-      postgres:11.5
+    docker run -e POSTGRES_USER=go -e POSTGRES_PASSWORD=your-strong-pass -e POSTGRES_DB=go --name students-db --net=students-net postgres:11.5
     ```
 3. Build the application image:
     ```shell script
@@ -40,8 +34,6 @@ No additional tools required.
     ```
 4. Start the application container:
     ```shell script
-    docker run -p 8080:8080 \
-      -e DB_PASS='your-strong-pass' \
-      --net=students-net students-app
+    docker run -p 8080:8080 -e DB_PASS='your-strong-pass' --net=students-net students-app
     ```
 Access the application via http://localhost:8080
