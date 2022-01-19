@@ -1,8 +1,7 @@
-# Software Engineering - CEN5035 Spring 2022
+# Software Engineering - CEN5035 Spring 2022Cancel changes
 ## Note-It
 A simple, quick, and easy to use note taking app hosted right on your web browser.
 
-## Test text - Praveena Hariharan
 ## Members
 **Front-end (Angular):**  Clayton Music, Fran Luka Antoljak
 
@@ -32,7 +31,3 @@ Access the application via http://localhost:8080
 NOTES:
 
 steps 2 and 4 will not work again until the containers are killed in docker desktop app
-
-Fran Luka Antoljak
-
-Austin
