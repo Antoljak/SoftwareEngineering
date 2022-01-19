@@ -37,3 +37,4 @@ No additional tools required.
     docker run -p 8080:8080 -e DB_PASS='your-strong-pass' --net=students-net students-app
     ```
 Access the application via http://localhost:8080
+
