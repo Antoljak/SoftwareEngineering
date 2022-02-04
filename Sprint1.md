@@ -2,8 +2,11 @@
 
 Frontend
 - Created wireframes for website
+Frontpage:
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Frontpage_Wireframe.png "Frontpage")
+Login:
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Login_Wireframe.png "Login")
+Storage:
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Storage_Wireframe.png "Storage")
 
 - Chose ckeditor4-angular as rich text editor library
