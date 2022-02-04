@@ -15,5 +15,16 @@ Storage:
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Frontend_Demo.gif "Frontend")
 
 Backend
--
+
+- 
+
+Writing to DB:
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/writing.gif "Writing/Insertion")
+
+Reading from DB:
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/reading.gif "Reading")
+
+Deleting from DB:
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/deleting.gif "Deletion")
+
 
