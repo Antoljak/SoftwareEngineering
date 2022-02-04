@@ -1,5 +1,4 @@
-# Software Engineering 
-## Note-It Sprint 1 
+# Note-It Sprint 1 Overview
 
 Frontend
 - Showing the basic tools provided by the text editor
