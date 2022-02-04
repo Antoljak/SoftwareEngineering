@@ -37,7 +37,7 @@ func main() {
 // Simple init to have a firestore client available
 func init() {
 	ctx = context.Background()
-	opt := option.WithCredentialsFile("note-it-db-service-account")
+	opt := option.WithCredentialsFile("note-it-db-service-account.json")
 	client, err = firestore.NewClient(ctx, "note-it-db", opt)
 	if err != nil {
 		log.Fatalf("Firestore: %v", err)
