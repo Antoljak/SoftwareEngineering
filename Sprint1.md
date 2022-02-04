@@ -1,11 +1,11 @@
 # Note-It Sprint 1 Overview
 
 Frontend
-- Created wireframes for website
-Frontpage:
-![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Frontpage_Wireframe.png "Frontpage")
+- Created wireframes for website <br>
 Login:
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Login_Wireframe.png "Login")
+Editor:
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Frontpage_Wireframe.png "Editor")
 Storage:
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Storage_Wireframe.png "Storage")
 
