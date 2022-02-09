@@ -14,6 +14,8 @@ type FileData struct {
 	label   string `firestore:"label"`
 }
 
+//comment for initial dev-sprint-2 commit
+
 var client *firestore.Client
 var err error
 var ctx context.Context
