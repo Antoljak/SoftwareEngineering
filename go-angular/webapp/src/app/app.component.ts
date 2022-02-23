@@ -18,42 +18,8 @@ export class AppComponent implements AfterViewInit {
   public editorData = '<p>Note it!</p>'
 	public isSourceActive: boolean;
 	public sourceData: string;
-  // displayedColumns = ['name', 'age'];
-  // dataSource: Student[] = [];
-  // getAllSubscription: Subscription;
-  // dialogSubscription: Subscription;
 
   constructor(public dialog: MatDialog) {}
-
-  // openEditDialog(st: Student) {
-  //   this.openDialog(new Student(st.id, st.name, st.age));
-  // }
-
-  // openNewDialog(): void {
-  //   this.openDialog(new Student());
-  // }
-
-  // private openDialog(st: Student): void {
-  //   this.dialogSubscription = this.dialog
-  //     .open(StudentDialog, {data: st, minWidth: '30%'})
-  //     .afterClosed().subscribe(() => this.loadStudentsList());
-  // }
-
-  // private loadStudentsList(): void {
-  //   this.getAllSubscription = this.service.getAll()
-  //     .subscribe(students => this.dataSource = students);
-  // }
-
-  // ngOnInit(): void {
-  //   this.loadStudentsList();
-  // }
-
-  // ngOnDestroy(): void {
-  //   this.getAllSubscription.unsubscribe();
-  //   if (this.dialogSubscription) {
-  //     this.dialogSubscription.unsubscribe();
-  //   }
-  // }
 
   ngAfterViewInit() {
 		this.editor.dataChange.subscribe( ( value ) => {
@@ -64,20 +30,3 @@ export class AppComponent implements AfterViewInit {
 	}
 }
 
-// export class EditorBindingComponent implements AfterViewInit {
-// 	@ViewChild( 'editor',{static:false} ) editor;
-
-// 	public editorData = '<p>This is a CKEditor 4 WYSIWYG editor instance created with Angular.</p>'
-
-// 	public isSourceActive: boolean;
-
-// 	public sourceData: string;
-
-// 	ngAfterViewInit() {
-// 		this.editor.dataChange.subscribe( ( value ) => {
-// 			if ( !this.isSourceActive ) {
-// 				this.sourceData = value;
-// 			}
-// 		} );
-// 	}
-// }
