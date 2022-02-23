@@ -1,69 +1,83 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
-	"context"
+
 	"cloud.google.com/go/firestore"
-    "google.golang.org/api/option"
-	// "firebase.google.com/go"
-	// "google.golang.org/api/option"
+	"google.golang.org/api/option"
 )
 
-func init() {
-    ctx := context.Background()
-    var err error
-	opt := option.WithCredentialsFile("/Users/raulsalazar/Desktop/SWEproj/SoftwareEngineering/go-angular/note-it-db-firebase-adminsdk-sxa67-119151a562.json")
-    // opt := option.WithCredentialsFile("service-account.json")
-    client, err := firestore.NewClient(ctx, "note-it-db", opt)
-    if err != nil {
-        log.Fatalf("Firestore: %v", err)
-    }
-    defer client.Close()
-
-
-    users, err := client.Doc("Users/user1/user1Files/file1").Get(ctx)
-    //json, err := json.MarshalIndent(users.Data(), "", "  ")
-    if err != nil {
-        log.Fatalf("Firestore: %v", err)
-    }
-    fmt.Println("inside init")
-    for key, element := range users.Data() {
-        fmt.Println("Key:", key, "=>", "Element:", element)
-    }
-
+type FileData struct {
+	content string `firestore:"content"`
+	label   string `firestore:"label"`
 }
+
+var client *firestore.Client
+var err error
+var ctx context.Context
+var fileContent = FileData{
+	content: "Loaded from main",
+	label:   "green",
+}
+var doc = make(map[string]interface{})
+var docRef string
+var docRefDel string
+var docRefRead string
 
 func main() {
-	// // Use a service account
-	// ctx := context.Background()
-	// sa := option.WithCredentialsFile("/Users/raulsalazar/Desktop/SWEproj/SoftwareEngineering/go-angular/note-it-db-firebase-adminsdk-sxa67-119151a562.json")
-	// // client, err := firestore.NewClient(ctx, "demodb-fb17e", opt)
-	// app, err := firebase.NewApp(ctx, nil, sa)
-	// if err != nil {
-	//   log.Fatalln(err)
-	// }
-	
-	// client, err := app.Firestore(ctx)
-	// if err != nil {
-	//   log.Fatalln(err)
-	// }
-	// defer client.Close()
-
-	// pass := os.Getenv("DB_PASS")
-	// db, err := gorm.Open(
-	// 	"postgres",
-	// 	"host=students-db user=go password="+pass+" dbname=go sslmode=disable")
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-	// app := App{
-	// 	db: db,
-	// 	r:  mux.NewRouter(),
-	// }
-	// app.start()
-    fmt.Println("inside MAIN")
-	
+	fmt.Println("hello world")
+	readFire(docRefRead)
+	setFire(docRef, doc)
+	deleteFire(docRefDel)
+	defer client.Close()
 }
 
+// Simple init to have a firestore client available
+func init() {
+	ctx = context.Background()
+	opt := option.WithCredentialsFile("note-it-db-service-account.json")
+	client, err = firestore.NewClient(ctx, "note-it-db", opt)
+	if err != nil {
+		log.Fatalf("Firestore: %v", err)
+	}
+	doc["objectExample"] = map[string]interface{}{
+		"content": "sample",
+		"label":   "green",
+	}
+	docRefRead = "Users/user1/user1Files/file1"
+	docRef = "Users/user1/user1Files/file7"
+	docRefDel = "Users/user1/user1Files/file2"
 
+}
+
+//Function to read a file from database
+func readFire(docRef string) {
+	fmt.Println("inside readFire()")
+	users, err := client.Doc(docRef).Get(ctx)
+	if err != nil {
+		log.Fatalf("Firestore: %v", err)
+	}
+	for key, element := range users.Data() {
+		fmt.Println("Key:", key, "=>", "Element:", element)
+	}
+}
+
+//Function to create a new file or update if the file already exists
+func setFire(docRef string, doc map[string]interface{}) {
+	fmt.Println("inside setFire()")
+	_, err := client.Doc(docRef).Set(ctx, doc)
+	if err != nil {
+		log.Fatalf("Firestore: %v", err)
+	}
+}
+
+//Function to delete a file from database
+func deleteFire(docRef string) {
+	fmt.Println("inside deleteFire")
+	_, err = client.Doc(docRef).Delete(ctx)
+	if err != nil {
+		log.Fatalf("Firestore: %v", err)
+	}
+}

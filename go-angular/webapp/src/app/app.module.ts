@@ -13,6 +13,7 @@ import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {StudentsService} from "./students.service";
+import {CKEditorModule} from 'ckeditor4-angular';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {StudentsService} from "./students.service";
     FormsModule,
     HttpClientModule,
     MatToolbarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CKEditorModule
   ],
   providers: [
     StudentsService
