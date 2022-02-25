@@ -42,4 +42,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 			}
 		});
 	}
+
+	SaveNote() {
+		alert("Saved");
+	}
+	
+	Login() {
+		alert("Please log in");
+	}
 }

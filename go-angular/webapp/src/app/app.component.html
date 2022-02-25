@@ -5,8 +5,8 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>Save</button>
-    <button mat-menu-item>Log in</button>
+    <button mat-menu-item (click)="SaveNote()">Save</button>
+    <button mat-menu-item (click)="Login()">Log in</button>
   </mat-menu>
 </mat-toolbar>
 
