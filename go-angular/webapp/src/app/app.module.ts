@@ -5,6 +5,8 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from '@angular/material/icon'; 
+import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from "@angular/material/dialog";
 import {StudentDialog} from "./student-dialog/student-dialog.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -27,6 +29,8 @@ import {CKEditorModule} from 'ckeditor4-angular';
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
     MatFormFieldModule,
     FormsModule,
     HttpClientModule,
