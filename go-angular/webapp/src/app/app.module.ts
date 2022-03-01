@@ -14,11 +14,13 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {StudentsService} from "./students.service";
 import {CKEditorModule} from 'ckeditor4-angular';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentDialog
+    StudentDialog,
+    LoginComponent
   ],
   imports: [
     MatInputModule,
