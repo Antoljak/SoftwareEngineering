@@ -20,6 +20,8 @@ import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
+import { EditorComponent } from './editor/editor.component';
+import { ArchiveComponent } from './archive/archive.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -60,6 +62,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   declarations: [
     AppComponent,
     LoginComponent,
+    EditorComponent,
+    ArchiveComponent,
   ],
   imports: [
     MatInputModule,
