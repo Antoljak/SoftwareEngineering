@@ -1,1 +1,38 @@
-<p>editor works!</p>
+<mat-toolbar color="primary">
+  <span class="tool-bar" >Note-It</span>
+  <span class="spacer"></span>
+  <button mat-icon-button color="white" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="SaveNote('archive')">Save</button>
+    <button mat-menu-item (click)="Login()">Log in</button>
+  </mat-menu>
+</mat-toolbar>
+
+<p>
+  <label for="source-editor">The editor content:</label>
+</p>
+
+<p>
+  <textarea
+    id="source-editor"
+    class="source-editor"
+    (focus)="isSourceActive = true;"
+    (change)="isSourceActive = false; editorData = sourceData"
+    [(ngModel)]="sourceData">
+  </textarea>
+</p>
+
+<div class="editor-instance">
+  <ckeditor
+    #editor
+    [(ngModel)]="editorData" 
+    [config]="ckeConfig">
+  </ckeditor>
+</div>
+
+<div class="editor-preview">
+  <h2>Rendered content</h2>
+  <div [(innerHtml)]="editorData" #preview></div>
+</div>

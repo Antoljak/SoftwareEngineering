@@ -22,6 +22,8 @@ import {environment} from '../environments/environment';
 import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 import { EditorComponent } from './editor/editor.component';
 import { ArchiveComponent } from './archive/archive.component';
+//import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -63,13 +65,12 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AppComponent,
     LoginComponent,
     EditorComponent,
-    ArchiveComponent,
+    ArchiveComponent
   ],
   imports: [
     MatInputModule,
     MatDialogModule,
     MatTableModule,
-    BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
@@ -83,7 +84,13 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+    BrowserModule,
+    RouterModule.forRoot([
+      { path: 'login', component: LoginComponent },
+      { path: '', component: EditorComponent },
+      { path: 'archive', component: ArchiveComponent }
+    ]),
   ],
   providers: [
     [AngularFireAuth]
