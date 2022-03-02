@@ -8,7 +8,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from '@angular/material/icon'; 
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from "@angular/material/dialog";
-import {StudentDialog} from "./student-dialog/student-dialog.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
@@ -21,9 +20,6 @@ import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
-
-
-
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
