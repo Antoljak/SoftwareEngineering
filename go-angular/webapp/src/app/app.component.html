@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
   <span class="tool-bar" >Note-It</span>
   <span class="spacer"></span>
   <button mat-icon-button color="white" [matMenuTriggerFor]="menu">
@@ -35,4 +35,12 @@
 <div class="editor-preview">
   <h2>Rendered content</h2>
   <div [(innerHtml)]="editorData" #preview></div>
-</div>
+</div> -->
+
+<!-- This code needs to moved to LoginComponent.html
+Need to set up routing, does not work when setting LoginComponent as bootstrap component
+-->
+<mat-toolbar color="primary">
+  <span class="tool-bar" >Note-It</span>
+</mat-toolbar>
+<firebase-ui></firebase-ui>
