@@ -22,7 +22,6 @@ import {environment} from '../environments/environment';
 import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 import { EditorComponent } from './editor/editor.component';
 import { ArchiveComponent } from './archive/archive.component';
-//import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
