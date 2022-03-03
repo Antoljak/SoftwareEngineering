@@ -2,6 +2,9 @@
   //margin: auto;
   //color: black;
   margin-left: 1%;
+  font-style: italic;
+  font-variant: small-caps;
+  font-size:200%;
 }
 
 
@@ -13,3 +16,8 @@ table {
 .add-button {
   float: right;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
