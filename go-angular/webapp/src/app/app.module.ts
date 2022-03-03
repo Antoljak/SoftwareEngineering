@@ -86,8 +86,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     BrowserModule,
     RouterModule.forRoot([
-      { path: 'login', component: LoginComponent },
-      { path: '', component: EditorComponent },
+      { path: '', component: LoginComponent },
+      { path: 'editor', component: EditorComponent },
       { path: 'archive', component: ArchiveComponent }
     ]),
   ],
