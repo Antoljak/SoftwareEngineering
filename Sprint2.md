@@ -8,6 +8,7 @@ Frontend
 
 - Added angular material theming
 - Added authentication with FirebaseUI and AngularFire libraries
+- Created angular components for login, note editor, and nore archive and reorganized respectively
 
 
 Backend
