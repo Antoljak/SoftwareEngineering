@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { AngularFireAuth, } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-editor',
@@ -10,12 +12,20 @@ import { Router } from '@angular/router';
 export class EditorComponent implements OnInit, AfterViewInit {
 	ckeConfig: any;
 	@ViewChild('editor', {static:false}) editor: any;
-
+	
 	public editorData = '<p>Note it!</p>'
 	public isSourceActive: boolean;
 	public sourceData: string;
+	public userName = "";
+	// public userName = this.authService.userName;
 
-  	constructor(public dialog: MatDialog, private router: Router) {}
+	constructor(public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth) {}
+
+	getUserEmail() {
+		this.userName = this.afAuth.auth.currentUser.email;
+		return this.userName;
+	}
+	
 
 	ngOnInit() {
 		// https://ckeditor.com/cke4/builder
@@ -34,14 +44,16 @@ export class EditorComponent implements OnInit, AfterViewInit {
 		filebrowserImageUploadUrl:
 			'https://ckeditor.com/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images'
 		};
+		
 	}
-
+	
 	ngAfterViewInit() {
 		this.editor.dataChange.subscribe( ( value ) => {
 			if ( !this.isSourceActive ) {
 				this.sourceData = value;
 			}
 		});
+		this.userName = this.afAuth.auth.currentUser.email;
 	}
 
 	SaveNote(pageName:string) {

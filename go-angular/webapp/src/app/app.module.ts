@@ -86,8 +86,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     BrowserModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent },
-      { path: 'editor', component: EditorComponent },
+      { path: 'login', component: LoginComponent },
+      { path: '', component: EditorComponent },
       { path: 'archive', component: ArchiveComponent }
     ]),
   ],
@@ -95,8 +95,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     [AngularFireAuth]
   ],
   bootstrap: [AppComponent]
-  //should make the app land on the login page in the future
-  //bootstrap: [LoginComponent]
   
   
 })

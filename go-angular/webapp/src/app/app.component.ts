@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import { AuthService } from './auth.service';
+
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
