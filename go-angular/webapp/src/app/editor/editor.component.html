@@ -1,0 +1,44 @@
+<mat-toolbar color="primary">
+  <span class="tool-bar" >Note-It</span>
+  <span class="spacer"></span>
+  <button mat-icon-button color="white" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="SaveNote('archive')">Save Note</button>
+    <button mat-menu-item (click)="Logout()">Log Out</button>
+  </mat-menu>
+</mat-toolbar>
+
+
+
+<div class="editor-instance">
+  <ckeditor
+    #editor
+    [(ngModel)]="editorData" 
+    [config]="ckeConfig">
+  </ckeditor>
+</div>
+
+<div class="editor-preview">
+  <h2>Current user's email: {{getUserEmail()}}</h2>
+
+  <h2>
+    <label for="source-editor">The editor content as html (saved to firestore):</label>
+  </h2>
+  
+  <p>
+    <textarea
+      id="source-editor"
+      class="source-editor"
+      (focus)="isSourceActive = true;"
+      (change)="isSourceActive = false; editorData = sourceData"
+      [(ngModel)]="sourceData">
+    </textarea>
+  </p>
+  <!-- <button (click)="getUserEmail()">get current user's email</button> -->
+  <!-- <h2>Current user's email:</h2> -->
+
+  <!-- <h2>Rendered content</h2>
+  <div [(innerHtml)]="editorData" #preview></div> -->
+</div>
