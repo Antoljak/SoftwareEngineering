@@ -16,14 +16,22 @@ export class EditorComponent implements OnInit, AfterViewInit {
 	public editorData = '<p>Note it!</p>'
 	public isSourceActive: boolean;
 	public sourceData: string;
-	public userName = "";
-	// public userName = this.authService.userName;
+	public userEmail = "";
+	// public userEmail = this.authService.userEmail;
 
 	constructor(public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth) {}
 
 	getUserEmail() {
-		this.userName = this.afAuth.auth.currentUser.email;
-		return this.userName;
+		this.userEmail = this.afAuth.auth.currentUser.email;
+		if(this.userEmail != "")
+		{
+			return this.userEmail;
+		}
+		else
+		{
+			this.userEmail = "User is not logged in."
+			return this.userEmail;
+		}
 	}
 	
 
@@ -53,7 +61,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
 				this.sourceData = value;
 			}
 		});
-		this.userName = this.afAuth.auth.currentUser.email;
+		this.userEmail = this.afAuth.auth.currentUser.email;
 	}
 
 	SaveNote(pageName:string) {
