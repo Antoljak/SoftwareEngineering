@@ -6,23 +6,11 @@
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="SaveNote('archive')">Save Note</button>
-    <button mat-menu-item (click)="Login()">Log in</button>
+    <button mat-menu-item (click)="Logout()">Log Out</button>
   </mat-menu>
 </mat-toolbar>
 
-<p>
-  <label for="source-editor">The editor content:</label>
-</p>
 
-<p>
-  <textarea
-    id="source-editor"
-    class="source-editor"
-    (focus)="isSourceActive = true;"
-    (change)="isSourceActive = false; editorData = sourceData"
-    [(ngModel)]="sourceData">
-  </textarea>
-</p>
 
 <div class="editor-instance">
   <ckeditor
@@ -33,8 +21,24 @@
 </div>
 
 <div class="editor-preview">
-  <h2>Rendered content</h2>
-  <button (click)="getUserEmail()">get current user's email</button>
-  <h2>{{userEmail}}</h2>
-  <div [(innerHtml)]="editorData" #preview></div>
+  <h2>Current user's email: {{getUserEmail()}}</h2>
+
+  <h2>
+    <label for="source-editor">The editor content as html (saved to firestore):</label>
+  </h2>
+  
+  <p>
+    <textarea
+      id="source-editor"
+      class="source-editor"
+      (focus)="isSourceActive = true;"
+      (change)="isSourceActive = false; editorData = sourceData"
+      [(ngModel)]="sourceData">
+    </textarea>
+  </p>
+  <!-- <button (click)="getUserEmail()">get current user's email</button> -->
+  <!-- <h2>Current user's email:</h2> -->
+
+  <!-- <h2>Rendered content</h2>
+  <div [(innerHtml)]="editorData" #preview></div> -->
 </div>

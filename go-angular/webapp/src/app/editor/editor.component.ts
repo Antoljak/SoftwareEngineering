@@ -61,14 +61,14 @@ export class EditorComponent implements OnInit, AfterViewInit {
 				this.sourceData = value;
 			}
 		});
-		this.userEmail = this.afAuth.auth.currentUser.email;
+		//this.userEmail = this.afAuth.auth.currentUser.email;
 	}
 
 	SaveNote(pageName:string) {
 		this.router.navigate([`${pageName}`]);
 	}
 	
-	Login() {
-		alert("Please log in");
+	Logout() {
+		alert("Logging out is still a work in progress!");
 	}
 }
