@@ -2,9 +2,7 @@
 
 Frontend
 
-- Basic frontend-backend linkage <br>
-
-![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Demos_sprint2demo)
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Demos_sprint2demo "Basic frontend-backend linkage")
 
 - Added angular material theming
 - Added authentication with FirebaseUI and AngularFire libraries
