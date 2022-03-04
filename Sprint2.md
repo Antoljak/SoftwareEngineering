@@ -1,7 +1,7 @@
 # Note-It Sprint 2 Overview
 
 Frontend
-
+-Basic frontend-backend linkage <br>
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/Demos_sprint2demo.gif "Basic frontend-backend linkage")
 
 - Added angular material theming
