@@ -11,4 +11,8 @@ A simple, quick, and easy to use note taking app hosted right on your web browse
 
 https://github.com/Praveena-H/SoftwareEngineering/blob/35f616a54b059da611a49612cc6d880213a510c7/Sprint1.md
 
+## Sprint 2 Report
+
+https://github.com/Praveena-H/SoftwareEngineering/blob/09c59c64fe8fd7123cdf9dc1bf68f4fb9a1cf739/Sprint2.md
+
 ### Starter Code from https://github.com/Shpota/go-angular
