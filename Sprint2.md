@@ -13,6 +13,13 @@
 - Added authentication with FirebaseUI and AngularFire libraries
 - Created angular components for login, note editor, and nore archive and reorganized respectively
 
+- Added Cypress tests
+- Testing editor
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/editor_test.gif "Editor test")
+
+- Testing archive access
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/main/Demos/archive_test.gif "Archive test")
+
 
 
 
