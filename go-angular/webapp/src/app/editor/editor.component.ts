@@ -9,6 +9,7 @@ import { AngularFireAuth, } from '@angular/fire/auth';
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
+
 export class EditorComponent implements OnInit, AfterViewInit {
 	ckeConfig: any;
 	@ViewChild('editor', {static:false}) editor: any;
@@ -17,19 +18,16 @@ export class EditorComponent implements OnInit, AfterViewInit {
 	public isSourceActive: boolean;
 	public sourceData: string;
 	public userEmail = "";
-	// public userEmail = this.authService.userEmail;
 
 	constructor(public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth) {}
 
 	getUserEmail() {
 		this.userEmail = this.afAuth.auth.currentUser.email;
-		if(this.userEmail != "")
-		{
+		if(this.userEmail != null){
 			return this.userEmail;
 		}
-		else
-		{
-			this.userEmail = "User is not logged in."
+		else{
+			this.userEmail = "Guest"
 			return this.userEmail;
 		}
 	}
@@ -41,8 +39,6 @@ export class EditorComponent implements OnInit, AfterViewInit {
 		extraPlugins: 'uploadimage',
 		uploadUrl:
 			'https://ckeditor.com/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-
-		// Configure your file manager integration. This example uses CKFinder 3 for PHP.
 		filebrowserBrowseUrl:
 			'https://ckeditor.com/apps/ckfinder/3.4.5/ckfinder.html',
 		filebrowserImageBrowseUrl:
@@ -61,14 +57,16 @@ export class EditorComponent implements OnInit, AfterViewInit {
 				this.sourceData = value;
 			}
 		});
-		//this.userEmail = this.afAuth.auth.currentUser.email;
 	}
 
 	SaveNote(pageName:string) {
+		console.log("Opening  " + this.getUserEmail() + "'s archive!");
 		this.router.navigate([`${pageName}`]);
 	}
 	
 	Logout() {
-		alert("Logging out is still a work in progress!");
+		console.log("Logging out the current user... " + this.getUserEmail());
+		this.afAuth.auth.signOut();
+		this.router.navigate(['login']);
 	}
 }
