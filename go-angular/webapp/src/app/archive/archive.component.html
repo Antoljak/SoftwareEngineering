@@ -1,11 +1,82 @@
 <mat-toolbar color="primary">
-    <span class="tool-bar" >Note-It</span>
-    <span class="spacer"></span>
-    <button mat-icon-button color="white" [matMenuTriggerFor]="menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="NewNote()">New Note</button>
-      <button mat-menu-item (click)="Logout()">Log Out</button>
-    </mat-menu>
-  </mat-toolbar>
+  <span class="tool-bar">Note-It</span>
+  <span class="spacer"></span>
+  <button mat-icon-button color="white" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="NewNote()">New Note</button>
+    <button mat-menu-item (click)="Logout()">Log Out</button>
+  </mat-menu>
+</mat-toolbar>
+
+<div class="card-space">
+    <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>Note 1</mat-card-title>
+          <mat-card-subtitle>Created xx/xx/xx</mat-card-subtitle>
+          <img
+            mat-card-sm-image
+            src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          />
+        </mat-card-title-group>
+        <mat-card-content>
+          {{ longText }}
+        </mat-card-content>
+      </mat-card>
+      
+      <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>Note 2</mat-card-title>
+          <mat-card-subtitle>Created xx/xx/xx</mat-card-subtitle>
+          <img
+            mat-card-sm-image
+            src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          />
+        </mat-card-title-group>
+        <mat-card-content>
+          {{ longText }}
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>Note 3</mat-card-title>
+          <mat-card-subtitle>Created xx/xx/xx</mat-card-subtitle>
+          <img
+            mat-card-sm-image
+            src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          />
+        </mat-card-title-group>
+        <mat-card-content>
+          {{ longText }}
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>Note 4</mat-card-title>
+          <mat-card-subtitle>Created xx/xx/xx</mat-card-subtitle>
+          <img
+            mat-card-sm-image
+            src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          />
+        </mat-card-title-group>
+        <mat-card-content>
+          {{ longText }}
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>Note 5</mat-card-title>
+          <mat-card-subtitle>Created xx/xx/xx</mat-card-subtitle>
+          <img
+            mat-card-sm-image
+            src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          />
+        </mat-card-title-group>
+        <mat-card-content>
+          {{ longText }}
+        </mat-card-content>
+      </mat-card>
+      
+</div>
+

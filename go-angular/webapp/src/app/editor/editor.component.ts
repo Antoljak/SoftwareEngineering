@@ -65,12 +65,12 @@ export class EditorComponent implements OnInit, AfterViewInit {
 	}
 	  
 	SaveNote(){
-		console.log("Saving note with contents..." + this.sourceData);
+		console.log("Saving note with contents... " + this.sourceData + " ...to " + this.getUserEmail() + "'s archive!");
 		//TODO - save this.sourceData to firebase DB
 		
 
 
-		
+
 		//reset editorData after saving note
 		alert("Note Saved!");
 		this.editorData = '<p>Note it!</p>'
