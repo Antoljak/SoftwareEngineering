@@ -1,1 +1,11 @@
-<p>The archive is still under construction! Check back after sprint 3!</p>
+<mat-toolbar color="primary">
+    <span class="tool-bar" >Note-It</span>
+    <span class="spacer"></span>
+    <button mat-icon-button color="white" [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="NewNote()">New Note</button>
+      <button mat-menu-item (click)="Logout()">Log Out</button>
+    </mat-menu>
+  </mat-toolbar>
