@@ -5,7 +5,8 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="SaveNote('archive')">Save Note</button>
+    <button mat-menu-item (click)="RouteToArchive()">My Archive</button>
+    <button mat-menu-item (click)="SaveNote('editorData')">Save Note</button>
     <button mat-menu-item (click)="Logout()">Log Out</button>
   </mat-menu>
 </mat-toolbar>
@@ -19,6 +20,7 @@
     [config]="ckeConfig">
   </ckeditor>
 </div>
+
 
 <!-- FOR DEV PURPOSES -->
 <!-- <div class="editor-preview">

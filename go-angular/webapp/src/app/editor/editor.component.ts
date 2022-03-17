@@ -59,9 +59,21 @@ export class EditorComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	SaveNote(pageName:string) {
+	RouteToArchive() {
 		console.log("Opening  " + this.getUserEmail() + "'s archive!");
-		this.router.navigate([`${pageName}`]);
+		this.router.navigate([`archive`]);
+	}
+	  
+	SaveNote(){
+		console.log("Saving note with contents..." + this.sourceData);
+		//TODO - save this.sourceData to firebase DB
+		
+
+
+		
+		//reset editorData after saving note
+		alert("Note Saved!");
+		this.editorData = '<p>Note it!</p>'
 	}
 	
 	Logout() {
