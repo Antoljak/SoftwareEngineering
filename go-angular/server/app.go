@@ -28,11 +28,12 @@ type NoteInfo struct {
 // 	r.Run(":4200") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 // }
 func test() {
-	http.HandleFunc("/testing", helloWorld)
+	http.HandleFunc("/save", saveNote)
+	http.HandleFunc("/editor", refreshPage)
 	http.ListenAndServe(":4200", nil)
 }
 
-func helloWorld(w http.ResponseWriter, r *http.Request) {
+func saveNote(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		for k, v := range r.URL.Query() {
@@ -51,11 +52,34 @@ func helloWorld(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("Cant unmarshal the byte array")
 			return
 		}
+
+		var doc = make(map[string]interface{})
+		doc["objectExample"] = map[string]interface{}{
+			"tag":     testBody.Tag,
+			"content": testBody.Content,
+			"title":   testBody.Title,
+		}
+		setFire(formDocPath(testBody), doc)
+
 		fmt.Println("body content:", testBody.Content)
+		fmt.Println("user id:", testBody.ID)
+
 		w.Write([]byte("Received a POST request\n"))
 	default:
 		w.WriteHeader(http.StatusNotImplemented)
 		w.Write([]byte(http.StatusText(http.StatusNotImplemented)))
 	}
+
+}
+
+func refreshPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("inside refresh page")
+	//http.Redirect(w, r, "http://localhost:4200/editor", 301)
+
+}
+func formDocPath(noteContent NoteInfo) string {
+
+	docpath := "Users/" + noteContent.ID + "/Files/" + noteContent.Title
+	return docpath
 
 }

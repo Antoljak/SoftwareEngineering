@@ -8,7 +8,7 @@ import { NoteInfo } from '../NoteInfo';
 })
 export class NoteService {
     
-	baseUrl: string = '/testing';
+	baseUrl: string = '/save';
 	readonly headers = new HttpHeaders()
 	  .set('Content-Type', 'application/json');
     
