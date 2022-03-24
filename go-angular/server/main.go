@@ -30,9 +30,10 @@ var docRefRead string
 
 func main() {
 	fmt.Println("hello world")
-	readFire(docRefRead)
-	setFire(docRef, doc)
-	deleteFire(docRefDel)
+	test()
+	// readFire(docRefRead)
+	// setFire(docRef, doc)
+	// deleteFire(docRefDel)
 	defer client.Close()
 }
 
