@@ -1,13 +1,17 @@
-import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
+import { Component, OnInit, ViewChild, AfterViewInit, Inject} from '@angular/core';
+import {MatDialog, MAT_DIALOG_DATA} from "@angular/material/dialog";
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth, } from '@angular/fire/auth';
+import { NoteInfo } from '../NoteInfo';
+import { NoteService } from '../service/note.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss']
+  styleUrls: ['./editor.component.scss'],
+  providers: [NoteService]
 })
 
 export class EditorComponent implements OnInit, AfterViewInit {
@@ -18,9 +22,10 @@ export class EditorComponent implements OnInit, AfterViewInit {
 	public isSourceActive: boolean;
 	public sourceData: string;
 	public userEmail = "";
-
-	constructor(public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth) {}
-
+	public noteInf = new NoteInfo();
+	addSubscription: Subscription;
+	constructor(public service: NoteService,public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth) {}
+    
 	getUserEmail() {
 		this.userEmail = this.afAuth.auth.currentUser.email;
 		if(this.userEmail != null){
@@ -68,7 +73,12 @@ export class EditorComponent implements OnInit, AfterViewInit {
 		console.log("Saving note with contents... " + this.sourceData + " ...to " + this.getUserEmail() + "'s archive!");
 		//TODO - save this.sourceData to firebase DB
 		
-
+		this.noteInf.content = this.editorData;
+		this.noteInf.id = this.userEmail;
+		this.noteInf.title = "sample note1";
+		this.noteInf.tag = "red";
+		this.addSubscription = this.service.saveNote(this.noteInf)
+        .subscribe();
 
 
 		//reset editorData after saving note
@@ -81,4 +91,5 @@ export class EditorComponent implements OnInit, AfterViewInit {
 		this.afAuth.auth.signOut();
 		this.router.navigate(['login']);
 	}
+	
 }
