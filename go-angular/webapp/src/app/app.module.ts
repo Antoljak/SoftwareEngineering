@@ -23,10 +23,12 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { EditorComponent } from './editor/editor.component';
+import { DialogComponent } from './editor/editor.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthGuard, AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AppRoutingModule } from './app-routing.module'; // CLI imports AppRoutingModule
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -49,7 +51,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AppComponent,
     LoginComponent,
     EditorComponent,
-    ArchiveComponent
+    ArchiveComponent,
+    DialogComponent
   ],
   imports: [
     MatInputModule,
@@ -71,12 +74,14 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FlexLayoutModule
   ],
   providers: [
     [AngularFireAuth, AngularFireAuthGuard ]
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 
 })
 export class AppModule {

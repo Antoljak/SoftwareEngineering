@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Enter title and tag</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="data.title">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Tag</mat-label>
+    <input matInput [(ngModel)]="data.tag">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data">Ok</button>
+  <button mat-button (click)="onNoClick()">Don't Save</button>
+</div>
