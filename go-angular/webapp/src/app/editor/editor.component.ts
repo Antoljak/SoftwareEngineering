@@ -91,7 +91,7 @@ export class EditorComponent implements OnInit, AfterViewInit {
 			//this.tag -- TAG TO BE SAVED
 			
 			
-			//this.SaveNote()
+			this.SaveNote()
 		  });
 	}
 
