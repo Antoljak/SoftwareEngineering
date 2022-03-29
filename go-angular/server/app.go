@@ -29,10 +29,34 @@ type NoteInfo struct {
 // }
 func test() {
 	http.HandleFunc("/save", saveNote)
+	http.HandleFunc("/getAllNotes", getAllNotes)
 	http.HandleFunc("/editor", refreshPage)
 	http.ListenAndServe(":4200", nil)
 }
 
+func getAllNotes(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		params, ok := r.URL.Query()["userId"]
+		if !ok || len(params[0]) < 1 {
+			log.Println("Url Param 'userId' is missing")
+			return
+		}
+		userId := params[0]
+		resultAllDocs := readFire("Users/" + userId + "/Files")
+		// resp := make(map[string]string)
+		// resp["message"] = "Status Created"
+		// resp["id"] = "userId"
+		jsonResp, err := json.Marshal(resultAllDocs)
+		if err != nil {
+			log.Fatalf("Error happened in JSON marshal. Err: %s", err)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(jsonResp))
+
+	}
+}
 func saveNote(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
@@ -41,28 +65,28 @@ func saveNote(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Write([]byte("Received a GET request\n"))
 	case "POST":
-		reqBody, err := ioutil.ReadAll(r.Body)
+		tempReqBody, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("%s\n", reqBody)
-		var testBody NoteInfo
-		marshallErr := json.Unmarshal(reqBody, &testBody)
+		fmt.Printf("%s\n", tempReqBody)
+		var reqBody NoteInfo
+		marshallErr := json.Unmarshal(tempReqBody, &reqBody)
 		if marshallErr != nil {
 			fmt.Println("Cant unmarshal the byte array")
 			return
 		}
 
 		var doc = make(map[string]interface{})
-		doc["objectExample"] = map[string]interface{}{
-			"tag":     testBody.Tag,
-			"content": testBody.Content,
-			"title":   testBody.Title,
-		}
-		setFire(formDocPath(testBody), doc)
+		doc["id"] = reqBody.ID
+		doc["tag"] = reqBody.Tag
+		doc["content"] = reqBody.Content
+		doc["title"] = reqBody.Title
 
-		fmt.Println("body content:", testBody.Content)
-		fmt.Println("user id:", testBody.ID)
+		setFire(formDocPath(reqBody), doc)
+
+		fmt.Println("body content:", reqBody.Content)
+		fmt.Println("user id:", reqBody.ID)
 
 		w.Write([]byte("Received a POST request\n"))
 	default:

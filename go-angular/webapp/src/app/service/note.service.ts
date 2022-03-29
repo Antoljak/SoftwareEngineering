@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import { NoteInfo } from '../NoteInfo';
 
@@ -17,6 +17,11 @@ export class NoteService {
     saveNote(note: NoteInfo): Observable<NoteInfo> {
 		alert(note.title);
 		return this.http.post<NoteInfo>(this.baseUrl, note, {headers: this.headers});
+	}
+	getAllNotes(userId: string):Observable<NoteInfo[]>{
+		let userInfo = new HttpParams().set("userId",userId); //Create new HttpParams
+		return this.http.get<NoteInfo[]>("/getAllNotes",{params: userInfo});
+
 	}
 
 }
