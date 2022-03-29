@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Inject} from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth, } from '@angular/fire/auth';
@@ -7,24 +7,32 @@ import { NoteInfo } from '../NoteInfo';
 import { NoteService } from '../service/note.service';
 import { Subscription } from 'rxjs';
 
+export interface DialogData {
+	title: string;
+	tag: string;
+}
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
   providers: [NoteService]
 })
-
 export class EditorComponent implements OnInit, AfterViewInit {
 	ckeConfig: any;
 	@ViewChild('editor', {static:false}) editor: any;
 	
+	title: string;
+	tag: string;
+
 	public editorData = '<p>Note it!</p>'
 	public isSourceActive: boolean;
 	public sourceData: string;
 	public userEmail = "";
 	public noteInf = new NoteInfo();
 	addSubscription: Subscription;
-	constructor(public service: NoteService,public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth) {}
+	
+	constructor(public service: NoteService, public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth) {}
     
 	getUserEmail() {
 		this.userEmail = this.afAuth.auth.currentUser.email;
@@ -68,15 +76,33 @@ export class EditorComponent implements OnInit, AfterViewInit {
 		console.log("Opening  " + this.getUserEmail() + "'s archive!");
 		this.router.navigate([`archive`]);
 	}
+	
+	onSaveClick(noteData): void {
+		const dialogRef = this.dialog.open(DialogComponent, {
+			width: '250px',
+			data: {title: this.title, tag: this.tag},
+		  });
 	  
-	SaveNote(){
+		  dialogRef.afterClosed().subscribe(data => {
+			this.title = data.title;
+			this.tag = data.tag;
+			console.log(this.title + this.tag)
+			//this.title -- TITLE TO BE SAVED
+			//this.tag -- TAG TO BE SAVED
+			
+			
+			this.SaveNote()
+		  });
+	}
+
+	SaveNote(){	
 		console.log("Saving note with contents... " + this.sourceData + " ...to " + this.getUserEmail() + "'s archive!");
 		//TODO - save this.sourceData to firebase DB
 		
 		this.noteInf.content = this.editorData;
 		this.noteInf.id = this.userEmail;
-		this.noteInf.title = "sample note1";
-		this.noteInf.tag = "red";
+		this.noteInf.title = this.title;
+		this.noteInf.tag = this.tag;
 		this.addSubscription = this.service.saveNote(this.noteInf)
         .subscribe();
 
@@ -93,3 +119,18 @@ export class EditorComponent implements OnInit, AfterViewInit {
 	}
 	
 }
+
+@Component({
+	selector: 'dialogComponent',
+	templateUrl: './dialog.html',
+  })
+  export class DialogComponent {
+	constructor(
+	  public dialogRef: MatDialogRef<DialogComponent>,
+	  @Inject(MAT_DIALOG_DATA) public data: DialogData,
+	) {}
+
+	onNoClick(): void {
+		this.dialogRef.close();
+	}
+  }
