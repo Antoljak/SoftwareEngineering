@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Inject} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Inject, OnDestroy} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth, } from '@angular/fire/auth';
 import { NoteInfo } from '../NoteInfo';
@@ -18,21 +18,22 @@ export interface DialogData {
   styleUrls: ['./editor.component.scss'],
   providers: [NoteService]
 })
-export class EditorComponent implements OnInit, AfterViewInit {
+export class EditorComponent implements OnInit, AfterViewInit{
 	ckeConfig: any;
 	@ViewChild('editor', {static:false}) editor: any;
 	
 	title: string;
 	tag: string;
-
-	public editorData = '<p>Note it!</p>'
+	public sub;
+	public paramTitle;
+	public editorData = '<p>Note it!</p>';
 	public isSourceActive: boolean;
 	public sourceData: string;
 	public userEmail = "";
 	public noteInf = new NoteInfo();
 	addSubscription: Subscription;
-	
-	constructor(public service: NoteService, public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth) {}
+	noteSubscription: Subscription;
+	constructor(public service: NoteService, public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth, private _Activatedroute:ActivatedRoute) {}
     
 	getUserEmail() {
 		this.userEmail = this.afAuth.auth.currentUser.email;
@@ -44,10 +45,22 @@ export class EditorComponent implements OnInit, AfterViewInit {
 			return this.userEmail;
 		}
 	}
-	
 
 	ngOnInit() {
-		// https://ckeditor.com/cke4/builder
+		this.sub=this._Activatedroute.paramMap.subscribe(params => { 
+			console.log(params);
+			this.paramTitle = params.get('title');
+			if(this.paramTitle != null){
+				this.noteSubscription = this.service.getNote(this.getUserEmail(), this.paramTitle)
+				.subscribe(data => {
+				this.editorData = data["Content"]
+				this.title = data["Title"]
+				this.tag = data["Tag"]
+				console.log(data);
+			});
+			}
+		});
+		
 		this.ckeConfig = {
 		extraPlugins: 'uploadimage',
 		uploadUrl:
@@ -61,7 +74,6 @@ export class EditorComponent implements OnInit, AfterViewInit {
 		filebrowserImageUploadUrl:
 			'https://ckeditor.com/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images'
 		};
-		
 	}
 	
 	ngAfterViewInit() {
@@ -82,33 +94,22 @@ export class EditorComponent implements OnInit, AfterViewInit {
 			width: '250px',
 			data: {title: this.title, tag: this.tag},
 		  });
-	  
 		  dialogRef.afterClosed().subscribe(data => {
 			this.title = data.title;
 			this.tag = data.tag;
 			console.log(this.title + this.tag)
-			//this.title -- TITLE TO BE SAVED
-			//this.tag -- TAG TO BE SAVED
-			
-			
 			this.SaveNote()
 		  });
 	}
 
 	SaveNote(){	
 		console.log("Saving note with contents... " + this.sourceData + " ...to " + this.getUserEmail() + "'s archive!");
-		//TODO - save this.sourceData to firebase DB
-		
 		this.noteInf.content = this.editorData;
 		this.noteInf.id = this.userEmail;
 		this.noteInf.title = this.title;
 		this.noteInf.tag = this.tag;
 		this.addSubscription = this.service.saveNote(this.noteInf)
         .subscribe();
-
-
-		//reset editorData after saving note
-		alert("Note Saved!");
 		this.editorData = '<p>Note it!</p>'
 	}
 	
@@ -117,7 +118,6 @@ export class EditorComponent implements OnInit, AfterViewInit {
 		this.afAuth.auth.signOut();
 		this.router.navigate(['login']);
 	}
-	
 }
 
 @Component({

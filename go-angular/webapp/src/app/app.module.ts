@@ -25,6 +25,7 @@ import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { EditorComponent } from './editor/editor.component';
 import { DialogComponent } from './editor/editor.component';
 import { ArchiveComponent } from './archive/archive.component';
+import { NoteService } from './service/note.service';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthGuard, AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AppRoutingModule } from './app-routing.module'; // CLI imports AppRoutingModule
@@ -78,7 +79,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FlexLayoutModule
   ],
   providers: [
-    [AngularFireAuth, AngularFireAuthGuard ]
+    [AngularFireAuth, AngularFireAuthGuard, NoteService]
   ],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent]

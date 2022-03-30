@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth, } from '@angular/fire/auth';
 import { NoteService } from '../service/note.service';
 import { Subscription } from 'rxjs';
 import { NoteInfo } from '../NoteInfo';
+import { Output, EventEmitter } from '@angular/core';
 
-let notes = [ 
-	{ title: 'Math', preview: '3 + 4 = 7', tag: 'red' },
-	{ title: 'Physics', preview: 'E = mc2', tag: 'blue' },
-	{ title: 'Chemistry', preview: 'C + O2 = CO2', tag: 'green' },
-	{ title: 'Biology', preview: 'Mitochondria...', tag: 'yellow' },
-]
+let notes = new Array(
+	{ title: 'Math', preview: '3 + 4 = 7', tag: 'red' , content: 'here is the content'}, 
+	{ title: 'Physics', preview: 'E = mc2', tag: 'blue' , content: 'here is the content'},
+	{ title: 'Chemistry', preview: 'C + O2 = CO2', tag: 'green' , content: 'here is the content'},
+	{ title: 'Biology', preview: 'Mitochondria...', tag: 'yellow' , content: 'here is the content'}
+) 
 
 @Component({
   selector: 'app-archive, notes',
@@ -20,29 +21,54 @@ let notes = [
   providers: [NoteService]
 })
 export class ArchiveComponent implements OnInit {
+
+	public message:string;
+	public subscription:Subscription;
 	public userEmail = "";
 	
-	notes = notes
+	notes = notes;
+
+	@Output() newContentEvent = new EventEmitter<string>();
 
 	constructor(public service: NoteService,private router: Router, public afAuth: AngularFireAuth) {}
 
+	sendContentToParent(value : string){
+		this.newContentEvent.emit(value);
+	}
+
+	updateNote(noteTitle : string, noteTag : string, notePreview : string, noteContent : string /* noteInf.content, noteInf.id, noteInf.title, noteInf.tag */) {
+		// console.log("title of note to be edited: "+ noteTitle);
+		// console.log("tag of note to be edited: "+ noteTag);
+		// console.log("preview of note to be edited: "+ notePreview);
+		// console.log("content of note to be edited: "+ noteContent);
+		this.router.navigate(['editor/'+noteTitle]);
+	}
+
 	// Load in notes and populates note cards
 	getNotes() {
-		alert("Inside getAllUserNotes");
+		var archiveNotes = new Array();
+
 		this.getAllSubscription = this.service.getAllNotes(this.getUserEmail())
         .subscribe(data => {
 			console.log(data);
-			// this.stringJson = JSON.stringify(data);
-			// this.dataSource = JSON.parse(this.stringJson);
-			// for (var obj of this.dataSource )
-			// 	{
-			// 		alert(obj.content);
-			// 	} 
+			this.dataSource = data;
 			
+            for(var index in this.dataSource)
+            { 
+				var x_title = this.dataSource[index]["Title"];
+				var x_content = this.dataSource[index]["Content"];
+				var x_tag = this.dataSource[index]["Tag"];
+				var x_preview = this.createPreview(x_content);
+				var x_entry = {title: x_title, preview: x_preview, tag: x_tag, content: x_content};
+				archiveNotes.push(x_entry);
+            }
+			notes = archiveNotes;
 		});
 	}
 
-	ngOnInit() { this.getNotes()}
+	ngOnInit() { 
+		this.getNotes()
+	}
 
 	getAllSubscription: Subscription;
 	dataSource: NoteInfo[] = [];
@@ -72,15 +98,13 @@ export class ArchiveComponent implements OnInit {
 		this.router.navigate(['login']);
 	}
 
-	createPreview() {
-		// use sourceData to create small preview of note
+	// use sourceData to create small preview of note
+	createPreview(str : string) {
+		return str.substring(0,15);
+		
 	}
 
-	updateNote(/* noteInf.content, noteInf.id, noteInf.title, noteInf.tag */) {
-		// Redirect to '/editor' and load note
-	}
-
-	deleteNote() {
+	deleteNote(noteTitle : string) {
 		// deletes selected note	
 	}
 

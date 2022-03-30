@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, ...canActivate(redirectLoggedInTo(['editor'])) },
   { path: 'editor', component: EditorComponent, ...canActivate(redirectUnauthorizedTo(['login'])) },
+  { path: 'editor/:title', component: EditorComponent, ...canActivate(redirectUnauthorizedTo(['login'])) },
   { path: 'archive', component: ArchiveComponent, ...canActivate(redirectUnauthorizedTo(['login'])) },
   
 ];

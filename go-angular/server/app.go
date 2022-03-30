@@ -16,22 +16,39 @@ type NoteInfo struct {
 	Timestamp string
 }
 
-// func test() {
-// 	r := gin.Default()
-
-// 	r.POST("/testing", func(c *gin.Context) {
-// 		c.JSON(200, gin.H{
-// 			"message": "hello there",
-// 		})
-// 		fmt.Println("Inside post method")
-// 	})
-// 	r.Run(":4200") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
-// }
-func test() {
+func startHttpServer() {
 	http.HandleFunc("/save", saveNote)
 	http.HandleFunc("/getAllNotes", getAllNotes)
 	http.HandleFunc("/editor", refreshPage)
+	http.HandleFunc("/getNote", getNote)
 	http.ListenAndServe(":4200", nil)
+}
+
+func getNote(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+    case "POST":
+        tempReqBody, err := ioutil.ReadAll(r.Body)
+        if err != nil {
+            log.Fatal(err)
+        }
+        fmt.Printf("%s\n", tempReqBody)
+        var reqBody NoteInfo
+        marshallErr := json.Unmarshal(tempReqBody, &reqBody)
+        if marshallErr != nil {
+            fmt.Println("Cant unmarshal the byte array")
+			return
+        }
+		fmt.Println(reqBody.Title)
+		fmt.Println(reqBody.ID)
+        responseBody := retrieveNote(formDocPath(reqBody))
+		w.Header().Set("Content-Type", "application/json")
+        w.WriteHeader(http.StatusOK)
+        encoder := json.NewEncoder(w)
+        err = encoder.Encode(&responseBody)
+        if err != nil {
+            panic(err)
+        }
+    }
 }
 
 func getAllNotes(w http.ResponseWriter, r *http.Request) {
@@ -44,9 +61,6 @@ func getAllNotes(w http.ResponseWriter, r *http.Request) {
 		}
 		userId := params[0]
 		resultAllDocs := readFire("Users/" + userId + "/Files")
-		// resp := make(map[string]string)
-		// resp["message"] = "Status Created"
-		// resp["id"] = "userId"
 		jsonResp, err := json.Marshal(resultAllDocs)
 		if err != nil {
 			log.Fatalf("Error happened in JSON marshal. Err: %s", err)
@@ -99,8 +113,8 @@ func saveNote(w http.ResponseWriter, r *http.Request) {
 func refreshPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Print("inside refresh page")
 	//http.Redirect(w, r, "http://localhost:4200/editor", 301)
-
 }
+
 func formDocPath(noteContent NoteInfo) string {
 
 	docpath := "Users/" + noteContent.ID + "/Files/" + noteContent.Title

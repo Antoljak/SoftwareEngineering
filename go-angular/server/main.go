@@ -22,12 +22,18 @@ var docRef string
 var docRefDel string
 var docRefRead string
 
+func testingBasics(){
+	docRefRead = "Users/hpraveena91@gmail.com/Files"
+	docRef = "Users/user1/user1Files/file7"
+	docRefDel = "Users/user1/user1Files/file2"
+	readFire(docRefRead)
+	setFire(docRef, doc)
+	deleteFire(docRefDel)
+}
+
 func main() {
-	fmt.Println("hello world")
-	test()
-	//readFire(docRefRead)
-	// setFire(docRef, doc)
-	// deleteFire(docRefDel)
+	fmt.Println("Server is listening...")
+	startHttpServer()
 	defer client.Close()
 }
 
@@ -39,14 +45,23 @@ func init() {
 	if err != nil {
 		log.Fatalf("Firestore: %v", err)
 	}
-	// doc["objectExample"] = map[string]interface{}{
-	// 	"content": "sample",
-	// 	"label":   "green",
-	// }
-	docRefRead = "Users/hpraveena91@gmail.com/Files"
-	docRef = "Users/user1/user1Files/file7"
-	docRefDel = "Users/user1/user1Files/file2"
+	
+}
 
+func retrieveNote(docRef string) NoteInfo{
+	var note NoteInfo 
+	entry, err := client.Doc(docRef).Get(ctx)
+    if err != nil {
+        log.Fatalf("Firestore: %v", err)
+    }
+	note.Content = entry.Data()["content"].(string)
+	note.Title = entry.Data()["title"].(string)
+	note.Tag = entry.Data()["tag"].(string)
+	// fmt.Println("now printing content, title and tag")
+	// fmt.Println(note.Content)
+	// fmt.Println(note.Title)
+	// fmt.Println(note.Tag)
+	return note
 }
 
 //Function to read a file from database
@@ -69,18 +84,8 @@ func readFire(docRef string) []NoteInfo {
 			fmt.Println(err)
 			panic(err)
 		}
-
 		allDocs = append(allDocs, eachFile)
-
 	}
-	// users, err := client.Doc(docRef).Get(ctx)
-	// if err != nil {
-	// 	log.Fatalf("Firestore: %v", err)
-	// }
-	// for key, element := range users.Data() {
-	// 	fmt.Println("Key:", key, "=>", "Element:", element)
-	// }
-	//fmt.Println(allDocs)
 	return allDocs
 }
 
