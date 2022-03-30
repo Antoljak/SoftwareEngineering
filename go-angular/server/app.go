@@ -62,7 +62,7 @@ func getAllNotes(w http.ResponseWriter, r *http.Request) {
 		}
 		userId := params[0]
 		resultAllDocs := readFire("Users/" + userId + "/Files")
-		jsonResp, err := json.Marshal(resultAllDocs)
+		//jsonResp, err := json.Marshal(resultAllDocs)
 		if err != nil {
 			log.Fatalf("Error happened in JSON marshal. Err: %s", err)
 		}
