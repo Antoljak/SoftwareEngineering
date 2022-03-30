@@ -25,6 +25,11 @@ export class ArchiveComponent implements OnInit {
 	public message:string;
 	public subscription:Subscription;
 	public userEmail = "";
+  getAllSubscription: Subscription;
+  deleteSubscription: Subscription;
+	dataSource: NoteInfo[] = [];
+	stringJson: any;
+	stringObject: any;
 	
 	notes = notes;
 
@@ -70,12 +75,6 @@ export class ArchiveComponent implements OnInit {
 		this.getNotes()
 	}
 
-	getAllSubscription: Subscription;
-	dataSource: NoteInfo[] = [];
-	stringJson: any;
-	stringObject: any;
-
- 
 	getUserEmail() {
 		this.userEmail = this.afAuth.auth.currentUser.email;
 		if(this.userEmail != null){
@@ -104,8 +103,11 @@ export class ArchiveComponent implements OnInit {
 		
 	}
 
-	deleteNote(noteTitle : string) {
-		// deletes selected note	
+	deleteNote(docTitle: string) {	
+		this.deleteSubscription = this.service.deleteNote(this.getUserEmail(),docTitle)
+        .subscribe()
+		this.router.navigate([`archive`]);
+
 	}
 
 }
