@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable, BehaviorSubject} from "rxjs";
+import {Observable} from "rxjs";
 import { NoteInfo } from '../NoteInfo';
 
 @Injectable({
@@ -11,10 +11,11 @@ export class NoteService {
 
 	baseUrl: string = '/save';
 	noteUrl: string = '/getNote';
+  deleteUrl: string = '/delete';
 	readonly headers = new HttpHeaders()
 	  .set('Content-Type', 'application/json');
     
-    saveNote(note: NoteInfo): Observable<NoteInfo> {
+  saveNote(note: NoteInfo): Observable<NoteInfo> {
 		return this.http.post<NoteInfo>(this.baseUrl, note, {headers: this.headers});
 	}
 	getAllNotes(userId: string):Observable<NoteInfo[]>{
@@ -24,6 +25,10 @@ export class NoteService {
 
 	getNote(userId : string, title : string):Observable<NoteInfo>{
 		return this.http.post<NoteInfo>(this.noteUrl,{"ID":userId,"Title":title} ,{headers: this.headers});
+	}
+  
+  deleteNote(userId: string,docTitle: string):Observable<NoteInfo> {
+		return this.http.post<NoteInfo>(this.deleteUrl,{"ID":userId,"Title":docTitle} ,{headers: this.headers});
 	}
 
 	
