@@ -21,6 +21,7 @@ func startHttpServer() {
 	http.HandleFunc("/getAllNotes", getAllNotes)
 	http.HandleFunc("/editor", refreshPage)
 	http.HandleFunc("/getNote", getNote)
+	http.HandleFunc("/delete", deleteNote)
 	http.ListenAndServe(":4200", nil)
 }
 
@@ -67,7 +68,11 @@ func getAllNotes(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(jsonResp))
+		encoder := json.NewEncoder(w)
+		err := encoder.Encode(&resultAllDocs)
+		if err != nil {
+			panic(err)
+		}
 
 	}
 }
@@ -108,6 +113,27 @@ func saveNote(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(http.StatusText(http.StatusNotImplemented)))
 	}
 
+}
+
+func deleteNote(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "POST":
+		tempReqBody, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("%s\n", tempReqBody)
+		var reqBody NoteInfo
+		marshallErr := json.Unmarshal(tempReqBody, &reqBody)
+		if marshallErr != nil {
+			fmt.Println("Cant unmarshal the byte array")
+			return
+		}
+		deleteFire(formDocPath(reqBody))
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Received a DELETE request\n"))
+
+	}
 }
 
 func refreshPage(w http.ResponseWriter, r *http.Request) {
