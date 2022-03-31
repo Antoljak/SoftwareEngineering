@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth, } from '@angular/fire/auth';
@@ -25,8 +26,8 @@ export class ArchiveComponent implements OnInit {
 	public message:string;
 	public subscription:Subscription;
 	public userEmail = "";
-  getAllSubscription: Subscription;
-  deleteSubscription: Subscription;
+  	getAllSubscription: Subscription;
+  	deleteSubscription: Subscription;
 	dataSource: NoteInfo[] = [];
 	stringJson: any;
 	stringObject: any;
@@ -35,7 +36,7 @@ export class ArchiveComponent implements OnInit {
 
 	@Output() newContentEvent = new EventEmitter<string>();
 
-	constructor(public service: NoteService,private router: Router, public afAuth: AngularFireAuth) {}
+	constructor(public service: NoteService,private router: Router, public afAuth: AngularFireAuth, public delDialog: MatDialog) {}
 
 	sendContentToParent(value : string){
 		this.newContentEvent.emit(value);
@@ -106,8 +107,27 @@ export class ArchiveComponent implements OnInit {
 	deleteNote(docTitle: string) {	
 		this.deleteSubscription = this.service.deleteNote(this.getUserEmail(),docTitle)
         .subscribe()
+
+		const dialogRef = this.delDialog.open(DeleteDialogComponent, {
+			width: '250px',
+		  });
+
 		this.router.navigate([`archive`]);
 
 	}
 
 }
+
+@Component({
+	selector: 'deleteDialog',
+	templateUrl: './deleteDialog.html',
+  })
+  export class DeleteDialogComponent {
+	constructor(
+	  public dialogRef: MatDialogRef<DeleteDialogComponent>
+	) {}
+
+	confirmClick(): void {
+		this.dialogRef.close();
+	}
+  }

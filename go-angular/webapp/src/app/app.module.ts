@@ -25,6 +25,7 @@ import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { EditorComponent } from './editor/editor.component';
 import { DialogComponent } from './editor/editor.component';
 import { ArchiveComponent } from './archive/archive.component';
+import { DeleteDialogComponent } from './archive/archive.component';
 import { NoteService } from './service/note.service';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthGuard, AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
@@ -53,7 +54,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     LoginComponent,
     EditorComponent,
     ArchiveComponent,
-    DialogComponent
+    DialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
     MatInputModule,
@@ -82,7 +84,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     [AngularFireAuth, AngularFireAuthGuard, NoteService]
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, DeleteDialogComponent]
 
 })
 export class AppModule {
