@@ -107,7 +107,7 @@ func saveNote(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("body content:", reqBody.Content)
 		fmt.Println("user id:", reqBody.ID)
 
-		w.Write([]byte("Received a POST request\n"))
+		w.Write([]byte("Note saved successfully\n"))
 	default:
 		w.WriteHeader(http.StatusNotImplemented)
 		w.Write([]byte(http.StatusText(http.StatusNotImplemented)))
@@ -131,7 +131,7 @@ func deleteNote(w http.ResponseWriter, r *http.Request) {
 		}
 		deleteFire(formDocPath(reqBody))
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Received a DELETE request\n"))
+		w.Write([]byte("Note deleted successfully \n"))
 
 	}
 }
