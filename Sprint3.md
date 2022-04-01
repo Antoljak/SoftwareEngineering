@@ -43,7 +43,7 @@
 ![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/b1aa7ef3c9b161b98c55847f1739f8bff358e842/Demos/DeleteNote.png)
 
 ## Technical Overview
-- Frontend - Angular (version)
+- Frontend - Angular 8
 - Backend - Golang
 - Database - Firestore
 
