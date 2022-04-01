@@ -26,7 +26,8 @@
 - Logout
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/logout_test.gif "Logout test")
 ## Backend Testing
-
+- Get All Notes
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/d7b317c3a8bf9f585c699bd25890ef148934f677/Demos/GetAllNotes.png)
 
 ## Technical Overview
 - Frontend - Angular (version)
