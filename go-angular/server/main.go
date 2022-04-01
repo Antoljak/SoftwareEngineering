@@ -6,33 +6,34 @@ import (
 	"log"
 
 	"cloud.google.com/go/firestore"
+	"github.com/mitchellh/mapstructure"
+	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
-
-type FileData struct {
-	content string `firestore:"content"`
-	label   string `firestore:"label"`
-}
 
 //comment for initial dev-sprint-2 commit
 
 var client *firestore.Client
 var err error
 var ctx context.Context
-var fileContent = FileData{
-	content: "Loaded from main",
-	label:   "green",
-}
+
 var doc = make(map[string]interface{})
 var docRef string
 var docRefDel string
 var docRefRead string
 
-func main() {
-	fmt.Println("hello world")
+func testingBasics(){
+	docRefRead = "Users/hpraveena91@gmail.com/Files"
+	docRef = "Users/user1/user1Files/file7"
+	docRefDel = "Users/user1/user1Files/file2"
 	readFire(docRefRead)
 	setFire(docRef, doc)
 	deleteFire(docRefDel)
+}
+
+func main() {
+	fmt.Println("Server is listening...")
+	startHttpServer()
 	defer client.Close()
 }
 
@@ -44,26 +45,49 @@ func init() {
 	if err != nil {
 		log.Fatalf("Firestore: %v", err)
 	}
-	doc["objectExample"] = map[string]interface{}{
-		"content": "sample",
-		"label":   "green",
-	}
-	docRefRead = "Users/user1/user1Files/file1"
-	docRef = "Users/user1/user1Files/file7"
-	docRefDel = "Users/user1/user1Files/file2"
+	
+}
 
+func retrieveNote(docRef string) NoteInfo{
+	var note NoteInfo 
+	entry, err := client.Doc(docRef).Get(ctx)
+    if err != nil {
+        log.Fatalf("Firestore: %v", err)
+    }
+	note.Content = entry.Data()["content"].(string)
+	note.Title = entry.Data()["title"].(string)
+	note.Tag = entry.Data()["tag"].(string)
+	note.ID = entry.Data()["id"].(string)
+	// fmt.Println("now printing content, title and tag")
+	// fmt.Println(note.Content)
+	// fmt.Println(note.Title)
+	// fmt.Println(note.Tag)
+	return note
 }
 
 //Function to read a file from database
-func readFire(docRef string) {
+func readFire(docRef string) []NoteInfo {
 	fmt.Println("inside readFire()")
-	users, err := client.Doc(docRef).Get(ctx)
-	if err != nil {
-		log.Fatalf("Firestore: %v", err)
+	allDocs := []NoteInfo{}
+	eachFile := NoteInfo{}
+	iter := client.Collection(docRef).Documents(ctx)
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			log.Fatalf("Firestore: %v", err)
+		}
+		fmt.Println(doc.Data())
+		err = mapstructure.Decode(doc.Data(), &eachFile)
+		if err != nil {
+			fmt.Println(err)
+			panic(err)
+		}
+		allDocs = append(allDocs, eachFile)
 	}
-	for key, element := range users.Data() {
-		fmt.Println("Key:", key, "=>", "Element:", element)
-	}
+	return allDocs
 }
 
 //Function to create a new file or update if the file already exists

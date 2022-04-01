@@ -1,91 +1,149 @@
 package main
 
-// import (
-// 	"encoding/json"
-// 	"github.com/google/uuid"
-// 	"github.com/gorilla/mux"
-// 	"github.com/jinzhu/gorm"
-// 	_ "github.com/jinzhu/gorm/dialects/postgres"
-// 	"log"
-// 	"net/http"
-// )
+import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+)
 
-// type student struct {
-// 	ID   string `gorm:"primary_key" json:"id"`
-// 	Name string `json:"name"`
-// 	Age  int    `json:"age"`
-// }
+type NoteInfo struct {
+	ID        string
+	Title     string
+	Content   string
+	Tag       string
+	Timestamp string
+}
 
-// type App struct {
-// 	db *gorm.DB
-// 	r  *mux.Router
-// }
+func startHttpServer() {
+	http.HandleFunc("/save", saveNote)
+	http.HandleFunc("/getAllNotes", getAllNotes)
+	http.HandleFunc("/editor", refreshPage)
+	http.HandleFunc("/getNote", getNote)
+	http.HandleFunc("/delete", deleteNote)
+	http.ListenAndServe(":4200", nil)
+}
 
-// func (a *App) start() {
-// 	a.db.AutoMigrate(&student{})
-// 	a.r.HandleFunc("/students", a.getAllStudents).Methods("GET")
-// 	a.r.HandleFunc("/students", a.addStudent).Methods("POST")
-// 	a.r.HandleFunc("/students/{id}", a.updateStudent).Methods("PUT")
-// 	a.r.HandleFunc("/students/{id}", a.deleteStudent).Methods("DELETE")
-// 	a.r.PathPrefix("/").Handler(http.FileServer(http.Dir("./webapp/dist/webapp/")))
-// 	log.Fatal(http.ListenAndServe(":8080", a.r))
-// }
+func getNote(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+    case "POST":
+        tempReqBody, err := ioutil.ReadAll(r.Body)
+        if err != nil {
+            log.Fatal(err)
+        }
+        fmt.Printf("%s\n", tempReqBody)
+        var reqBody NoteInfo
+        marshallErr := json.Unmarshal(tempReqBody, &reqBody)
+        if marshallErr != nil {
+            fmt.Println("Cant unmarshal the byte array")
+			return
+        }
+		fmt.Println(reqBody.Title)
+		fmt.Println(reqBody.ID)
+        responseBody := retrieveNote(formDocPath(reqBody))
+		w.Header().Set("Content-Type", "application/json")
+        w.WriteHeader(http.StatusOK)
+        encoder := json.NewEncoder(w)
+        err = encoder.Encode(&responseBody)
+        if err != nil {
+            panic(err)
+        }
+    }
+}
 
-// func (a *App) getAllStudents(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-Type", "application/json")
-// 	var all []student
-// 	err := a.db.Find(&all).Error
-// 	if err != nil {
-// 		sendErr(w, http.StatusInternalServerError, err.Error())
-// 		return
-// 	}
-// 	err = json.NewEncoder(w).Encode(all)
-// 	if err != nil {
-// 		sendErr(w, http.StatusInternalServerError, err.Error())
-// 	}
-// }
+func getAllNotes(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		params, ok := r.URL.Query()["userId"]
+		if !ok || len(params[0]) < 1 {
+			log.Println("Url Param 'userId' is missing")
+			return
+		}
+		userId := params[0]
+		resultAllDocs := readFire("Users/" + userId + "/Files")
+		//jsonResp, err := json.Marshal(resultAllDocs)
+		if err != nil {
+			log.Fatalf("Error happened in JSON marshal. Err: %s", err)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		encoder := json.NewEncoder(w)
+		err := encoder.Encode(&resultAllDocs)
+		if err != nil {
+			panic(err)
+		}
 
-// func (a *App) addStudent(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-Type", "application/json")
-// 	var s student
-// 	err := json.NewDecoder(r.Body).Decode(&s)
-// 	if err != nil {
-// 		sendErr(w, http.StatusBadRequest, err.Error())
-// 		return
-// 	}
-// 	s.ID = uuid.New().String()
-// 	err = a.db.Save(&s).Error
-// 	if err != nil {
-// 		sendErr(w, http.StatusInternalServerError, err.Error())
-// 	} else {
-// 		w.WriteHeader(http.StatusCreated)
-// 	}
-// }
+	}
+}
+func saveNote(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		for k, v := range r.URL.Query() {
+			fmt.Printf("%s: %s\n", k, v)
+		}
+		w.Write([]byte("Received a GET request\n"))
+	case "POST":
+		tempReqBody, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("%s\n", tempReqBody)
+		var reqBody NoteInfo
+		marshallErr := json.Unmarshal(tempReqBody, &reqBody)
+		if marshallErr != nil {
+			fmt.Println("Cant unmarshal the byte array")
+			return
+		}
 
-// func (a *App) updateStudent(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-Type", "application/json")
-// 	var s student
-// 	err := json.NewDecoder(r.Body).Decode(&s)
-// 	if err != nil {
-// 		sendErr(w, http.StatusBadRequest, err.Error())
-// 		return;
-// 	}
-// 	s.ID = mux.Vars(r)["id"]
-// 	err = a.db.Save(&s).Error
-// 	if err != nil {
-// 		sendErr(w, http.StatusInternalServerError, err.Error())
-// 	}
-// }
+		var doc = make(map[string]interface{})
+		doc["id"] = reqBody.ID
+		doc["tag"] = reqBody.Tag
+		doc["content"] = reqBody.Content
+		doc["title"] = reqBody.Title
 
-// func (a *App) deleteStudent(w http.ResponseWriter, r *http.Request) {
-// 	w.Header().Set("Content-Type", "application/json")
-// 	err := a.db.Unscoped().Delete(student{ID: mux.Vars(r)["id"]}).Error
-// 	if err != nil {
-// 		sendErr(w, http.StatusInternalServerError, err.Error())
-// 	}
-// }
+		setFire(formDocPath(reqBody), doc)
 
-// func sendErr(w http.ResponseWriter, code int, message string) {
-// 	resp, _ := json.Marshal(map[string]string{"error": message})
-// 	http.Error(w, string(resp), code)
-// }
+		fmt.Println("body content:", reqBody.Content)
+		fmt.Println("user id:", reqBody.ID)
+
+		w.Write([]byte("Note saved successfully\n"))
+	default:
+		w.WriteHeader(http.StatusNotImplemented)
+		w.Write([]byte(http.StatusText(http.StatusNotImplemented)))
+	}
+
+}
+
+func deleteNote(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "POST":
+		tempReqBody, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("%s\n", tempReqBody)
+		var reqBody NoteInfo
+		marshallErr := json.Unmarshal(tempReqBody, &reqBody)
+		if marshallErr != nil {
+			fmt.Println("Cant unmarshal the byte array")
+			return
+		}
+		deleteFire(formDocPath(reqBody))
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Note deleted successfully \n"))
+
+	}
+}
+
+func refreshPage(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("inside refresh page")
+	//http.Redirect(w, r, "http://localhost:4200/editor", 301)
+}
+
+func formDocPath(noteContent NoteInfo) string {
+
+	docpath := "Users/" + noteContent.ID + "/Files/" + noteContent.Title
+	return docpath
+
+}

@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatCardModule } from "@angular/material/";
+
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { HttpClientModule } from "@angular/common/http";
@@ -21,10 +23,14 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { EditorComponent } from './editor/editor.component';
+import { DialogComponent } from './editor/editor.component';
 import { ArchiveComponent } from './archive/archive.component';
+import { DeleteDialogComponent } from './archive/archive.component';
+import { NoteService } from './service/note.service';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthGuard, AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AppRoutingModule } from './app-routing.module'; // CLI imports AppRoutingModule
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -33,31 +39,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
     firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
 
-    //code to add other login methods
-    // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    // {
-    //   scopes: [
-    //     'public_profile',
-    //     'email',
-    //     'user_likes',
-    //     'user_friends'
-    //   ],
-    //   customParameters: {
-    //     'auth_type': 'reauthenticate'
-    //   },
-    //   provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID
-    // },
-    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    // {
-    //   requireDisplayName: false,
-    //   provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
-    // },
-    // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+    //code to add other login methods goes here
+    
   ],
   tosUrl: '<your-tos-link>',
   privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
-  //credentialHelper: firebaseui.auth.CredentialHelper.NONE
   credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
 
 };
@@ -67,10 +53,13 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AppComponent,
     LoginComponent,
     EditorComponent,
-    ArchiveComponent
+    ArchiveComponent,
+    DialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
     MatInputModule,
+    MatCardModule,
     MatDialogModule,
     MatTableModule,
     BrowserAnimationsModule,
@@ -88,12 +77,14 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FlexLayoutModule
   ],
   providers: [
-    [AngularFireAuth, AngularFireAuthGuard ]
+    [AngularFireAuth, AngularFireAuthGuard, NoteService]
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent, DeleteDialogComponent]
 
 })
 export class AppModule {

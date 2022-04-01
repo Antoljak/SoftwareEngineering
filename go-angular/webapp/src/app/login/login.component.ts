@@ -11,38 +11,27 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class LoginComponent {
   constructor(private afAuth: AngularFireAuth, public router: Router, private route: ActivatedRoute) {
-    this.afAuth.authState.subscribe(this.firebaseAuthChangeListener);
-    
+    this.afAuth.authState.subscribe(this.firebaseAuthChangeListener.bind(this));
   }
 
   ngOnInit(): void {
+    //prints current auth state info
     this.afAuth.authState.subscribe(d => console.log(d));
   }
 
-  firebaseAuthChangeListener(response) {
-    () => {
-      if (response) {
-        console.log('Logged in :)');
-        //DOES NOT WORK AND I DONT KNOW WHY
-        this.router.navigate(['editor']);
-      } else {
-        console.log('Logged out :(');
-      }
-    }
-    // if needed, do a redirect in here
-  };
-
-  logout() {
-    //this.afAuth.signOut();
+  //listens for change in logged in state
+  private firebaseAuthChangeListener(response) {
+    //if logged in, print message and route to editor page
+    if (response) {
+      console.log('Logged in :)');
+      this.router.navigate(['editor']);
+    } else {
+      console.log('Logged out :(');
+    } 
   }
 
-  successCallback(data: FirebaseUISignInSuccessWithAuthResult) {
-    console.log('successCallback', data);
-    this.router.navigate(['editor']);
-  }
+  
 
-  errorCallback(data: FirebaseUISignInFailure) {
-    console.warn('errorCallback', data);
-  }
+  
 
 }
