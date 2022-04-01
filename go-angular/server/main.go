@@ -57,6 +57,7 @@ func retrieveNote(docRef string) NoteInfo{
 	note.Content = entry.Data()["content"].(string)
 	note.Title = entry.Data()["title"].(string)
 	note.Tag = entry.Data()["tag"].(string)
+	note.ID = entry.Data()["id"].(string)
 	// fmt.Println("now printing content, title and tag")
 	// fmt.Println(note.Content)
 	// fmt.Println(note.Title)
