@@ -17,6 +17,14 @@
 - User can delete an existing note by clicking on the 'DELETE' option in the corresponding Note Card in the Archive page. This hard deletes the note from Firestore.
 
 ## Cypress Testing
+- Saving
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/save_test.gif "Save test")
+- Editing
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/edit_test.gif "Edit test")
+- Deleting
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/delete_test.gif "Delete test")
+- Logout
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/logout_test.gif "Logout test")
 ## Backend Testing
 
 
