@@ -55,7 +55,7 @@ export class ArchiveComponent implements OnInit {
 	dataSource: NoteInfo[] = [];
 	stringJson: any;
 	stringObject: any;
-	isGreen: boolean = true;
+	
 	
 	notes = notes;
 
@@ -98,10 +98,8 @@ export class ArchiveComponent implements OnInit {
 					redNotes.push(x_entry)
 				else if(x_tag == "Blue")
 					blueNotes.push(x_entry)
-				else if(x_tag == "Green"){
-					//this.isGreen = true;
-					greenNotes.push(x_entry)
-				}					
+				else if(x_tag == "Green")
+					greenNotes.push(x_entry)			
 				else if(x_tag == "Yellow")
 					yellowNotes.push(x_entry)
 				
