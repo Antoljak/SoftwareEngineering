@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Inject, OnDestroy} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Router, ActivatedRoute} from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AngularFireAuth, } from '@angular/fire/auth';
 import { NoteInfo } from '../NoteInfo';
 import { NoteService } from '../service/note.service';
 import { Subscription } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelect } from "@angular/material";
 
 export interface DialogData {
 	title: string;

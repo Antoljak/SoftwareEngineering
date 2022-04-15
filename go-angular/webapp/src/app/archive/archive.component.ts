@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, ChangeDetectorRef  } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -7,13 +7,37 @@ import { NoteService } from '../service/note.service';
 import { Subscription } from 'rxjs';
 import { NoteInfo } from '../NoteInfo';
 import { Output, EventEmitter } from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar'; 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelect } from "@angular/material";
+
 
 let notes = new Array(
-	{ title: 'Math', preview: '3 + 4 = 7', tag: 'red' , content: 'here is the content'}, 
-	{ title: 'Physics', preview: 'E = mc2', tag: 'blue' , content: 'here is the content'},
-	{ title: 'Chemistry', preview: 'C + O2 = CO2', tag: 'green' , content: 'here is the content'},
-	{ title: 'Biology', preview: 'Mitochondria...', tag: 'yellow' , content: 'here is the content'}
-) 
+	{ title: 'Math', preview: '3 + 4 = 7', tag: 'Red' , content: 'here is the content'}, 
+	{ title: 'Physics', preview: 'E = mc2', tag: 'Blue' , content: 'here is the content'},
+	{ title: 'Chemistry', preview: 'C + O2 = CO2', tag: 'Green' , content: 'here is the content'},
+	{ title: 'Biology', preview: 'Mitochondria...', tag: 'Yellow' , content: 'here is the content'}
+)
+
+let allNotes = new Array(
+	{ title: 'Math', preview: '3 + 4 = 7', tag: 'Red' , content: 'here is the content'}, 
+	{ title: 'Physics', preview: 'E = mc2', tag: 'Blue' , content: 'here is the content'},
+	{ title: 'Chemistry', preview: 'C + O2 = CO2', tag: 'Green' , content: 'here is the content'},
+	{ title: 'Biology', preview: 'Mitochondria...', tag: 'Yellow' , content: 'here is the content'}
+)
+let redNotes = new Array(
+	{ title: 'Math', preview: '3 + 4 = 7', tag: 'Red' , content: 'here is the content'}
+)
+let blueNotes = new Array(
+	{ title: 'Physics', preview: 'E = mc2', tag: 'Blue' , content: 'here is the content'}
+)
+let greenNotes = new Array(
+	{ title: 'Chemistry', preview: 'C + O2 = CO2', tag: 'Green' , content: 'here is the content'}
+)
+let yellowNotes = new Array(
+	{ title: 'Biology', preview: 'Mitochondria...', tag: 'Yellow' , content: 'here is the content'}
+)
 
 @Component({
   selector: 'app-archive, notes',
@@ -36,7 +60,7 @@ export class ArchiveComponent implements OnInit {
 
 	@Output() newContentEvent = new EventEmitter<string>();
 
-	constructor(public service: NoteService,private router: Router, public afAuth: AngularFireAuth, public delDialog: MatDialog) {}
+	constructor(public service: NoteService,private router: Router, public afAuth: AngularFireAuth, public delDialog: MatDialog,  private changeDetection: ChangeDetectorRef) {}
 
 	sendContentToParent(value : string){
 		this.newContentEvent.emit(value);
@@ -53,6 +77,7 @@ export class ArchiveComponent implements OnInit {
 	// Load in notes and populates note cards
 	getNotes() {
 		var archiveNotes = new Array();
+		//redNotes = []
 
 		this.getAllSubscription = this.service.getAllNotes(this.getUserEmail())
         .subscribe(data => {
@@ -67,13 +92,35 @@ export class ArchiveComponent implements OnInit {
 				var x_preview = this.createPreview(x_content);
 				var x_entry = {title: x_title, preview: x_preview, tag: x_tag, content: x_content};
 				archiveNotes.push(x_entry);
+
+				if(x_tag == "Red")
+					redNotes.push(x_entry)
+				else if(x_tag == "Blue")
+					blueNotes.push(x_entry)
+				else if(x_tag == "Green")
+					greenNotes.push(x_entry)
+				else if(x_tag == "Yellow")
+					yellowNotes.push(x_entry)
+				
             }
 			notes = archiveNotes;
+			allNotes = archiveNotes;
 		});
 	}
 
 	ngOnInit() { 
 		this.getNotes()
+	}
+
+	identify(index, note){
+		return note; 
+	}
+
+	loadRed() {
+		notes = redNotes;
+		this.changeDetection.detectChanges();
+		console.log(notes)
+		console.log(redNotes)
 	}
 
 	getUserEmail() {
@@ -101,7 +148,6 @@ export class ArchiveComponent implements OnInit {
 	// use sourceData to create small preview of note
 	createPreview(str : string) {
 		return str.substring(0,15);
-		
 	}
 
 	deleteNote(docTitle: string) {	
