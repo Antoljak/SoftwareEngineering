@@ -1,14 +1,71 @@
-@import '~@angular/material/theming';
-@import '~firebaseui/dist/firebaseui.css';
+@import "~@angular/material/theming";
+@import "~firebaseui/dist/firebaseui.css";
 
 @include mat-core();
 $my-app-primary: mat-palette($mat-deep-orange, 700);
-$my-app-accent:  mat-palette($mat-teal, 500, 900, A100);
-$my-app-warn:    mat-palette($mat-yellow);
+$my-app-accent: mat-palette($mat-teal, 500, 900, A100);
+$my-app-warn: mat-palette($mat-yellow);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+$prog-green-primary: mat-palette($mat-green, 700);
+$prog-green-accent: mat-palette($mat-teal, 500, 900, A100);
+$prog-green-warn: mat-palette($mat-yellow);
+$prog-green-theme: mat-light-theme(
+  $prog-green-primary,
+  $prog-green-accent,
+  $prog-green-warn
+);
+
+$prog-red-primary: mat-palette($mat-red, 700);
+$prog-red-accent: mat-palette($mat-teal, 500, 900, A100);
+$prog-red-warn: mat-palette($mat-yellow);
+$prog-red-theme: mat-light-theme(
+  $prog-red-primary,
+  $prog-red-accent,
+  $prog-red-warn
+);
+
+$prog-blue-primary: mat-palette($mat-blue, 700);
+$prog-blue-accent: mat-palette($mat-teal, 500, 900, A100);
+$prog-blue-warn: mat-palette($mat-yellow);
+$prog-blue-theme: mat-light-theme(
+  $prog-blue-primary,
+  $prog-blue-accent,
+  $prog-blue-warn
+);
+
+$prog-yellow-primary: mat-palette($mat-yellow, 700);
+$prog-yellow-accent: mat-palette($mat-teal, 500, 900, A100);
+$prog-yellow-warn: mat-palette($mat-yellow);
+$prog-yellow-theme: mat-light-theme(
+  $prog-yellow-primary,
+  $prog-yellow-accent,
+  $prog-yellow-warn
+);
+
 @include angular-material-theme($my-app-theme);
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-green-theme {
+  @include angular-material-theme($prog-green-theme);
+}
 
+.mat-red-theme {
+  @include angular-material-theme($prog-red-theme);
+}
 
+.mat-blue-theme {
+  @include angular-material-theme($prog-blue-theme);
+}
+
+.mat-yellow-theme {
+  @include angular-material-theme($prog-yellow-theme);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

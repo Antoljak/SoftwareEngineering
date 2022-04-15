@@ -39,6 +39,18 @@
           <button mat-button (click)="deleteNote(note.title)">Delete</button>
         </mat-card-actions>
         <mat-card-footer>
+          <div *ngIf="note.tag == 'Green'">
+            <mat-progress-bar class="mat-green-theme" mode="determinate" value="100" ></mat-progress-bar>
+          </div>
+          <div *ngIf="note.tag == 'Blue'">
+            <mat-progress-bar class="mat-blue-theme" mode="determinate" value="100" ></mat-progress-bar>
+          </div>
+          <div *ngIf="note.tag == 'Red'">
+            <mat-progress-bar class="mat-red-theme" mode="determinate" value="100" ></mat-progress-bar>
+          </div>
+          <div *ngIf="note.tag == 'Yellow'">
+            <mat-progress-bar class="mat-yellow-theme" mode="determinate" value="100" ></mat-progress-bar>
+          </div>
         </mat-card-footer>
       </mat-card>
     </div>
