@@ -1,40 +1,36 @@
 .tool-bar {
-    //margin: auto;
-    //color: black;
-    margin-left: 1%;
-    font-style: italic;
-    font-variant: small-caps;
-    font-size:200%;
-  }
-  
-  
-  table {
-    margin: auto;
-    width: 90%;
-  }
-  
-  .add-button {
-    float: right;
-  }
-  
-  .spacer {
-    flex: 1 1 auto;
-  }
+  //margin: auto;
+  //color: black;
+  margin-left: 1%;
+  font-style: italic;
+  font-variant: small-caps;
+  font-size: 200%;
+}
 
-  .example-card {
-    max-width: 200px;
-    margin-bottom: 8px;
-    margin-top: 1%;
-    margin-right:2%;
-    display: inline-block;
-  }
+table {
+  margin: auto;
+  width: 90%;
+}
 
-  .card-space {
-    margin-top: 2%;
-    margin-left: 15%;
-    margin-right: 15%;
-  }
+.add-button {
+  float: right;
+}
 
-  
-  
-  
+.spacer {
+  flex: 1 1 auto;
+}
+
+.example-card {
+  max-width: 200px;
+  margin-bottom: 8px;
+  margin-top: 1%;
+  margin-right: 2%;
+  display: inline-block;
+}
+
+.card-space {
+  // margin-top: 2%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
