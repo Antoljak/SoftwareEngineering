@@ -22,6 +22,7 @@ table {
 
 .example-card {
   max-width: 200px;
+  max-height: 80px;
   margin-bottom: 8px;
   margin-top: 1%;
   margin-right: 2%;
@@ -29,8 +30,14 @@ table {
 }
 
 .card-space {
-  // margin-top: 2%;
   margin-left: 15%;
   margin-right: 15%;
 }
 
+.titleSpace {
+  margin-left: -6px;
+}
+
+.contentSpace {
+  margin-left: 24px;
+}

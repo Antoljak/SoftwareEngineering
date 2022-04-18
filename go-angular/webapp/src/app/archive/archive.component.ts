@@ -110,7 +110,7 @@ export class ArchiveComponent implements OnInit {
 						yellowNotes.push(x_entry)
 
 				}
-				notes = archiveNotes;
+				this.notes = archiveNotes;
 				allNotes = archiveNotes;
 			});
 	}
@@ -200,9 +200,16 @@ export class ArchiveComponent implements OnInit {
 
 
 		});
+		// this.ngOnInit();
+
+		this.getNotes(); //this fixes the deleting issue 
+
+		// window.location.reload();
+
+		// this.router.navigate([`archive`]);
 
 
-		this.router.navigate([`archive`]);
+	
 
 	}
 
