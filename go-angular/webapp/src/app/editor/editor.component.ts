@@ -122,6 +122,7 @@ export class EditorComponent implements OnInit, AfterViewInit{
 		this.addSubscription = this.service.saveNote(this.noteInf)
         .subscribe();
 		this.editorData = '<p>Note it!</p>'
+		this.router.navigate(['archive'])
 	}
 	
 	Logout() {
