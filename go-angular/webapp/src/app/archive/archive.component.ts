@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Inject, ChangeDetectorRef, AfterContentInit } from '@angular/core';
+import { Component, OnDestroy, ViewChild, OnInit, Inject, ChangeDetectorRef, AfterContentInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -39,6 +39,11 @@ let yellowNotes = new Array(
 	{ title: 'Biology', preview: 'Mitochondria...', tag: 'Yellow', content: 'here is the content' }
 )
 
+export interface DeleteData {
+	doDelete: any;
+}
+
+
 @Component({
 	selector: 'app-archive, notes',
 	templateUrl: './archive.component.html',
@@ -47,6 +52,7 @@ let yellowNotes = new Array(
 })
 export class ArchiveComponent implements OnInit {
 
+	@ViewChild('editor', { static: false }) editor: any;
 	public message: string;
 	public subscription: Subscription;
 	public userEmail = "";
@@ -56,6 +62,7 @@ export class ArchiveComponent implements OnInit {
 	stringJson: any;
 	stringObject: any;
 
+	doDelete: any;
 
 	notes = notes;
 
@@ -108,7 +115,7 @@ export class ArchiveComponent implements OnInit {
 			});
 	}
 
-	ngOnInit() {	
+	ngOnInit() {
 		//Comment these lines out for filtering to work with dummy note values
 		//Needed when connected to server	
 		redNotes = [];
@@ -120,26 +127,26 @@ export class ArchiveComponent implements OnInit {
 	}
 
 	loadRed() {
-		this.notes = redNotes;		
+		this.notes = redNotes;
 		//console.log(redNotes)
 	}
 
 	loadGreen() {
-		this.notes = greenNotes;		
+		this.notes = greenNotes;
 		//console.log(greenNotes)
 	}
 
 	loadBlue() {
-		this.notes = blueNotes;		
+		this.notes = blueNotes;
 		//console.log(blueNotes)
 	}
 
 	loadYellow() {
-		this.notes = yellowNotes;		
+		this.notes = yellowNotes;
 		//console.log(yellowNotes)
 	}
 
-	clearSort(){
+	clearSort() {
 		this.notes = allNotes;
 	}
 
@@ -171,12 +178,29 @@ export class ArchiveComponent implements OnInit {
 	}
 
 	deleteNote(docTitle: string) {
-		this.deleteSubscription = this.service.deleteNote(this.getUserEmail(), docTitle)
-			.subscribe()
+		// this.deleteSubscription = this.service.deleteNote(this.getUserEmail(), docTitle)
+		// 	.subscribe()
 
 		const dialogRef = this.delDialog.open(DeleteDialogComponent, {
 			width: '250px',
+			data: {doDelete:"test"}
 		});
+		dialogRef.afterClosed().subscribe(data => {
+
+			console.log(data);
+			if (data.doDelete) {
+				console.log("doDelete = true");
+				this.deleteSubscription = this.service.deleteNote(this.getUserEmail(), docTitle)
+					.subscribe()
+			}
+			else {
+				console.log("doDelete = false");
+
+			}
+
+
+		});
+
 
 		this.router.navigate([`archive`]);
 
@@ -184,16 +208,28 @@ export class ArchiveComponent implements OnInit {
 
 }
 
+
+
 @Component({
 	selector: 'deleteDialog',
-	templateUrl: './deleteDialog.html',
+	templateUrl: './deleteDialog.html'
 })
 export class DeleteDialogComponent {
 	constructor(
-		public dialogRef: MatDialogRef<DeleteDialogComponent>
+		public dialogRef: MatDialogRef<DeleteDialogComponent>,
+		@Inject(MAT_DIALOG_DATA) public data: DeleteData
 	) { }
 
-	confirmClick(): void {
-		this.dialogRef.close();
+
+	cancelDelete(): void {	
+		this.data.doDelete = false;	
+		this.dialogRef.close(this.data);
 	}
+
+	confirmDelete(): void {
+		//do the delete
+		this.data.doDelete = true;	
+		this.dialogRef.close(this.data);
+	}
+
 }

@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>Enter title and tag</h1>
 <div mat-dialog-content>
-  <mat-form-field appearance="fill">
+  <mat-form-field  appearance="fill">
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="data.title">
+    <input maxLength="10" matInput [(ngModel)]="data.title">
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Tag</mat-label>
