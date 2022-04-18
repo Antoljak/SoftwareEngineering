@@ -32,9 +32,11 @@ export class EditorComponent implements OnInit, AfterViewInit{
 	public isSourceActive: boolean;
 	public sourceData: string;
 	public userEmail = "";
+	public oldTitle = "";
 	public noteInf = new NoteInfo();
 	addSubscription: Subscription;
 	noteSubscription: Subscription;
+	deleteSubscription: Subscription;
 	constructor(public service: NoteService, public dialog: MatDialog, private router: Router, private authService: AuthService, public afAuth: AngularFireAuth, private _Activatedroute:ActivatedRoute) {}
     
 	getUserEmail() {
@@ -52,7 +54,8 @@ export class EditorComponent implements OnInit, AfterViewInit{
 		this.sub=this._Activatedroute.paramMap.subscribe(params => { 
 			console.log(params);
 			this.paramTitle = params.get('title');
-			if(this.paramTitle != null){
+			if(this.paramTitle != null){ //if not null we are editing a previous note 
+				this.oldTitle = this.paramTitle;``
 				this.noteSubscription = this.service.getNote(this.getUserEmail(), this.paramTitle)
 				.subscribe(data => {
 				this.editorData = data["Content"]
@@ -110,6 +113,12 @@ export class EditorComponent implements OnInit, AfterViewInit{
 		this.noteInf.id = this.userEmail;
 		this.noteInf.title = this.title;
 		this.noteInf.tag = this.tag;
+		//here
+		if(this.oldTitle != "" && this.title != this.oldTitle){
+			this.deleteSubscription = this.service.deleteNote(this.getUserEmail(), this.oldTitle)
+			.subscribe()
+			this.oldTitle = ""
+		}
 		this.addSubscription = this.service.saveNote(this.noteInf)
         .subscribe();
 		this.editorData = '<p>Note it!</p>'
