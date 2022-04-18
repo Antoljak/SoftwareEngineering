@@ -103,7 +103,7 @@ export class ArchiveComponent implements OnInit {
 						yellowNotes.push(x_entry)
 
 				}
-				notes = archiveNotes;
+				this.notes = archiveNotes;
 				allNotes = archiveNotes;
 			});
 	}
@@ -177,8 +177,14 @@ export class ArchiveComponent implements OnInit {
 		const dialogRef = this.delDialog.open(DeleteDialogComponent, {
 			width: '250px',
 		});
+		// this.ngOnInit();
 
-		this.router.navigate([`archive`]);
+		this.getNotes(); //this fixes the deleting issue 
+
+		// window.location.reload();
+
+		// this.router.navigate([`archive`]);
+
 
 	}
 
