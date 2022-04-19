@@ -39,10 +39,9 @@ let yellowNotes = new Array(
 	{ title: 'Biology', preview: 'Mitochondria...', tag: 'Yellow', content: 'here is the content' }
 )
 
-export interface DeleteData {
+export interface DeleteData{
 	doDelete: any;
 }
-
 
 @Component({
 	selector: 'app-archive, notes',
@@ -62,7 +61,7 @@ export class ArchiveComponent implements OnInit {
 	stringJson: any;
 	stringObject: any;
 
-	doDelete: any;
+	doDelete: boolean;
 
 	notes = notes;
 
@@ -84,6 +83,11 @@ export class ArchiveComponent implements OnInit {
 
 	// Load in notes and populates note cards
 	getNotes() {
+		redNotes = [];
+		blueNotes = [];
+		greenNotes = [];
+		yellowNotes = [];
+
 		var archiveNotes = new Array();
 		console.log("getNotes() called");
 
@@ -118,10 +122,7 @@ export class ArchiveComponent implements OnInit {
 	ngOnInit() {
 		//Comment these lines out for filtering to work with dummy note values
 		//Needed when connected to server	
-		redNotes = [];
-		blueNotes = [];
-		greenNotes = [];
-		yellowNotes = [];
+		
 
 		this.getNotes()
 	}
@@ -178,28 +179,20 @@ export class ArchiveComponent implements OnInit {
 	}
 
 	deleteNote(docTitle: string) {
-		// this.deleteSubscription = this.service.deleteNote(this.getUserEmail(), docTitle)
-		// 	.subscribe()
+		
 
 		const dialogRef = this.delDialog.open(DeleteDialogComponent, {
 			width: '250px',
-			data: {doDelete:"test"}
+			data: {doDelete:false}
 		});
+
 		dialogRef.afterClosed().subscribe(data => {
-
-			console.log(data);
-			if (data.doDelete) {
-				console.log("doDelete = true");
-				this.deleteSubscription = this.service.deleteNote(this.getUserEmail(), docTitle)
-					.subscribe()
+			if(data.doDelete) {
+				this.deleteSubscription = this.service.deleteNote(this.getUserEmail(), docTitle).subscribe()
 			}
-			else {
-				console.log("doDelete = false");
+			this.getNotes(); //this fixes the deleting issue 
 
-			}
-
-
-		});
+		})
 		// this.ngOnInit();
 
 		this.getNotes(); //this fixes the deleting issue 
@@ -227,16 +220,13 @@ export class DeleteDialogComponent {
 		@Inject(MAT_DIALOG_DATA) public data: DeleteData
 	) { }
 
-
-	cancelDelete(): void {	
-		this.data.doDelete = false;	
+	cancelDelete(): void {
+		this.data.doDelete = false;
 		this.dialogRef.close(this.data);
 	}
 
 	confirmDelete(): void {
-		//do the delete
-		this.data.doDelete = true;	
+		this.data.doDelete = true;
 		this.dialogRef.close(this.data);
 	}
-
 }
