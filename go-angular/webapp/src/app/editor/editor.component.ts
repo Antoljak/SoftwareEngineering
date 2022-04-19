@@ -67,6 +67,8 @@ export class EditorComponent implements OnInit, AfterViewInit{
 		});
 		
 		this.ckeConfig = {
+		resize_enabled: true,
+		height: 800,
 		extraPlugins: 'uploadimage',
 		uploadUrl:
 			'https://ckeditor.com/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',

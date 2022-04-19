@@ -39,6 +39,10 @@ let yellowNotes = new Array(
 	{ title: 'Biology', preview: 'Mitochondria...', tag: 'Yellow', content: 'here is the content' }
 )
 
+export interface DeleteData{
+	doDelete: any;
+}
+
 @Component({
 	selector: 'app-archive, notes',
 	templateUrl: './archive.component.html',
@@ -56,6 +60,8 @@ export class ArchiveComponent implements OnInit {
 	stringJson: any;
 	stringObject: any;
 
+
+	doDelete: boolean;
 
 	notes = notes;
 
@@ -77,6 +83,11 @@ export class ArchiveComponent implements OnInit {
 
 	// Load in notes and populates note cards
 	getNotes() {
+		redNotes = [];
+		blueNotes = [];
+		greenNotes = [];
+		yellowNotes = [];
+
 		var archiveNotes = new Array();
 		console.log("getNotes() called");
 
@@ -111,10 +122,7 @@ export class ArchiveComponent implements OnInit {
 	ngOnInit() {	
 		//Comment these lines out for filtering to work with dummy note values
 		//Needed when connected to server	
-		redNotes = [];
-		blueNotes = [];
-		greenNotes = [];
-		yellowNotes = [];
+		
 
 		this.getNotes()
 	}
@@ -171,12 +179,20 @@ export class ArchiveComponent implements OnInit {
 	}
 
 	deleteNote(docTitle: string) {
-		this.deleteSubscription = this.service.deleteNote(this.getUserEmail(), docTitle)
-			.subscribe()
+		
 
 		const dialogRef = this.delDialog.open(DeleteDialogComponent, {
 			width: '250px',
+			data: {doDelete:false}
 		});
+
+		dialogRef.afterClosed().subscribe(data => {
+			if(data.doDelete) {
+				this.deleteSubscription = this.service.deleteNote(this.getUserEmail(), docTitle).subscribe()
+			}
+			this.getNotes(); //this fixes the deleting issue 
+
+		})
 		// this.ngOnInit();
 
 		this.getNotes(); //this fixes the deleting issue 
@@ -196,10 +212,21 @@ export class ArchiveComponent implements OnInit {
 })
 export class DeleteDialogComponent {
 	constructor(
-		public dialogRef: MatDialogRef<DeleteDialogComponent>
+		public dialogRef: MatDialogRef<DeleteDialogComponent>,
+		@Inject(MAT_DIALOG_DATA) public data: DeleteData
 	) { }
 
 	confirmClick(): void {
 		this.dialogRef.close();
+	}
+
+	cancelDelete(): void {
+		this.data.doDelete = false;
+		this.dialogRef.close(this.data);
+	}
+
+	confirmDelete(): void {
+		this.data.doDelete = true;
+		this.dialogRef.close(this.data);
 	}
 }
