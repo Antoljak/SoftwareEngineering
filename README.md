@@ -1,6 +1,17 @@
 # Software Engineering - CEN5035 Spring 2022
-## Note-It
+
+## Application Overview
 A simple, quick, and easy to use note taking app hosted right on your web browser.
+
+## Project Demo
+
+## Cypress test 
+
+## Backend unit test
+
+## API Documentation
+
+## Project board link
 
 ## Members
 **Front-end (Angular):**  Clayton Music, Fran Luka Antoljak
