@@ -1,130 +1,127 @@
 package main
 
-// import (
-// 	"bytes"
-// 	"encoding/json"
-// 	"github.com/gorilla/mux"
-// 	"github.com/jinzhu/gorm"
-// 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-// 	"io"
-// 	"net/http"
-// 	"net/http/httptest"
-// 	"testing"
-// )
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+)
 
-// func TestGetAllStudents(t *testing.T) {
-// 	app := initApp()
-// 	st := student{ID: "id-1", Age: 20, Name: "John Doe"}
-// 	app.db.Save(st)
-// 	req, _ := http.NewRequest("GET", "/students", nil)
-// 	r := httptest.NewRecorder()
-// 	handler := http.HandlerFunc(app.getAllStudents)
+func TestGetNote(t *testing.T) {
+	nt := NoteInfo{ID: "hpraveena91@gmail.com", Title: "Sample Note 1"}
+	reqBdy, _ := json.Marshal(nt)
+	req, _ := http.NewRequest("POST", "/getNote", bytes.NewBuffer(reqBdy))
+	r := httptest.NewRecorder()
+	handler := http.HandlerFunc(getNote)
 
-// 	handler.ServeHTTP(r, req)
+	handler.ServeHTTP(r, req)
 
-// 	checkStatusCode(r.Code, http.StatusOK, t)
-// 	checkContentType(r, t)
-// 	checkBody(r.Body, st, t)
-// }
+	checkStatusCode(r.Code, http.StatusOK, t)
+	checkContentType(r, t)
+	checkGetNoteResponse(r, nt, t)
+}
 
-// func TestAddStudent(t *testing.T) {
-// 	app := initApp()
-// 	var rqBody = toReader(`{"name":"John Doe", "age":20}`)
-// 	req, _ := http.NewRequest("POST", "/students", rqBody)
-// 	r := httptest.NewRecorder()
-// 	handler := http.HandlerFunc(app.addStudent)
+func TestGetAllNotes(t *testing.T) {
+	nt := NoteInfo{ID: "hpraveena91@gmail.com"}
+	req, _ := http.NewRequest("GET", "/getAllNotes?userId=hpraveena91@gmail.com", nil)
+	r := httptest.NewRecorder()
+	handler := http.HandlerFunc(getAllNotes)
 
-// 	handler.ServeHTTP(r, req)
+	handler.ServeHTTP(r, req)
 
-// 	checkStatusCode(r.Code, http.StatusCreated, t)
-// 	checkContentType(r, t)
-// 	checkProperties(firstStudent(app), t)
-// }
+	checkStatusCode(r.Code, http.StatusOK, t)
+	checkContentType(r, t)
+	checkGetAllNotesResponse(r, nt, t)
+}
 
-// func TestUpdateStudent(t *testing.T) {
-// 	app := initApp()
-// 	app.db.Save(student{ID: "id-1", Age: 25, Name: "Peter Doe"})
-// 	var rqBody = toReader(`{"name":"John Doe", "age":20}`)
-// 	req, _ := http.NewRequest("PUT", "/students/id", rqBody)
-// 	req = mux.SetURLVars(req, map[string]string{"id": "id-1"})
-// 	r := httptest.NewRecorder()
-// 	handler := http.HandlerFunc(app.updateStudent)
+func TestSaveNote(t *testing.T) {
+	nt := NoteInfo{ID: "hpraveena91@gmail.com", Title: "Unit Testing Note", Tag: "Blue", Content: "This is a sample note"}
+	reqBdy, _ := json.Marshal(nt)
+	req, _ := http.NewRequest("POST", "/save", bytes.NewBuffer(reqBdy))
+	r := httptest.NewRecorder()
+	handler := http.HandlerFunc(saveNote)
 
-// 	handler.ServeHTTP(r, req)
+	handler.ServeHTTP(r, req)
 
-// 	checkStatusCode(r.Code, http.StatusOK, t)
-// 	checkContentType(r, t)
-// 	checkProperties(firstStudent(app), t)
-// }
+	checkStatusCode(r.Code, http.StatusOK, t)
+	ct := r.Header().Get("Content-Type")
+	if ct != "text/plain; charset=utf-8" {
+		t.Errorf("Wrong Content Type: got %v want text/plain; charset=utf-8", ct)
+	}
 
-// func TestDeleteStudent(t *testing.T) {
-// 	app := initApp()
-// 	app.db.Save(student{ID: "id-1", Age: 20, Name: "John Doe"})
-// 	req, _ := http.NewRequest("DELETE", "/students/id", nil)
-// 	req = mux.SetURLVars(req, map[string]string{"id": "id-1"})
-// 	r := httptest.NewRecorder()
-// 	handler := http.HandlerFunc(app.deleteStudent)
+	responseBody := r.Body.String()
+	if responseBody != "Note saved successfully\n" {
+		t.Errorf("Error in save note")
+	}
 
-// 	handler.ServeHTTP(r, req)
+}
 
-// 	checkStatusCode(r.Code, http.StatusOK, t)
-// 	checkContentType(r, t)
-// 	checkDbIsEmpty(app.db, t)
-// }
+func TestDeleteNote(t *testing.T) {
+	nt := NoteInfo{ID: "hpraveena91@gmail.com", Title: "Unit Testing Note", Tag: "Blue", Content: "This is a sample note"}
+	reqBdy, _ := json.Marshal(nt)
+	req, _ := http.NewRequest("POST", "/delete", bytes.NewBuffer(reqBdy))
+	r := httptest.NewRecorder()
+	handler := http.HandlerFunc(deleteNote)
 
-// func initApp() App {
-// 	db, _ := gorm.Open("sqlite3", ":memory:")
-// 	db.AutoMigrate(&student{})
-// 	return App{db: db}
-// }
+	handler.ServeHTTP(r, req)
 
-// func firstStudent(app App) student {
-// 	var all []student
-// 	app.db.Find(&all)
-// 	return all[0]
-// }
+	checkStatusCode(r.Code, http.StatusOK, t)
 
-// func toReader(content string) io.Reader {
-// 	return bytes.NewBuffer([]byte(content))
-// }
+	responseBody := r.Body.String()
+	if responseBody != "Note deleted successfully \n" {
+		t.Errorf("Error in delete note")
+	}
+}
 
-// func checkStatusCode(code int, want int, t *testing.T) {
-// 	if code != want {
-// 		t.Errorf("Wrong status code: got %v want %v", code, want)
-// 	}
-// }
+func toReader(content string) io.Reader {
+	return bytes.NewBuffer([]byte(content))
+}
 
-// func checkContentType(r *httptest.ResponseRecorder, t *testing.T) {
-// 	ct := r.Header().Get("Content-Type")
-// 	if ct != "application/json" {
-// 		t.Errorf("Wrong Content Type: got %v want application/json", ct)
-// 	}
-// }
+func checkStatusCode(code int, want int, t *testing.T) {
+	if code != want {
+		t.Errorf("Wrong status code: got %v want %v", code, want)
+	}
+}
 
-// func checkProperties(st student, t *testing.T) {
-// 	if st.Name != "John Doe" {
-// 		t.Errorf("Name should match: got %v want %v", st.Name, "Peter Doe")
-// 	}
-// 	if st.Age != 20 {
-// 		t.Errorf("Age should match: got %v want %v", st.Age, 20)
-// 	}
-// }
+func checkContentType(r *httptest.ResponseRecorder, t *testing.T) {
+	ct := r.Header().Get("Content-Type")
+	if ct != "application/json" {
+		t.Errorf("Wrong Content Type: got %v want application/json", ct)
+	}
+}
 
-// func checkBody(body *bytes.Buffer, st student, t *testing.T) {
-// 	var students []student
-// 	_ = json.Unmarshal(body.Bytes(), &students)
-// 	if len(students) != 1 {
-// 		t.Errorf("Wrong lenght: got %v want 1", len(students))
-// 	}
-// 	if students[0] != st {
-// 		t.Errorf("Wrong body: got %v want %v", students[0], st)
-// 	}
-// }
+func checkGetNoteResponse(r *httptest.ResponseRecorder, nt NoteInfo, t *testing.T) {
+	var responseBody NoteInfo
+	res := r.Body.Bytes()
+	marshallErr := json.Unmarshal(res, &responseBody)
+	if marshallErr != nil {
+		fmt.Println("Cant unmarshal the byte array")
+		return
+	}
+	if responseBody.ID != nt.ID {
+		t.Errorf("User ID should match: got %v want %v", responseBody.ID, nt.ID)
+	}
+	if responseBody.Title != nt.Title {
+		t.Errorf("Title should match: got %v want %v", responseBody.Title, nt.Title)
+	}
+}
+func checkGetAllNotesResponse(r *httptest.ResponseRecorder, nt NoteInfo, t *testing.T) {
+	var responseBody []NoteInfo
+	res := r.Body.Bytes()
+	marshallErr := json.Unmarshal(res, &responseBody)
+	if marshallErr != nil {
+		fmt.Println("Cant unmarshal the byte array")
+		return
+	}
+	if len(responseBody) != 0 {
+		for _, eachNote := range responseBody {
+			if eachNote.ID != nt.ID {
+				t.Errorf("User ID should match: got %v want %v", eachNote.ID, nt.ID)
+			}
+		}
+	}
 
-// func checkDbIsEmpty(db *gorm.DB, t *testing.T) {
-// 	var students []student
-// 	db.Find(&students)
-// 	if len(students) != 0 {
-// 		t.Errorf("Student has not been deleted")
-// 	}
-// }
+}
