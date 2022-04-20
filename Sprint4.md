@@ -25,7 +25,7 @@
 
 ## Cypress Testing
 - Saving
-![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/save_test.gif "Save test")
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/save_test.gif "Save test")
 - Editing
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/edit_test.gif "Edit test")
 - Deleting
