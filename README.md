@@ -18,6 +18,8 @@ A simple, quick, and easy to use note taking app hosted right on your web browse
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/editor_test.gif "Editor test")
 - Archive
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/archive_test.gif "Archive test")
+- Filter
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/filter_test.gif "Filter test")
 
 ## Backend unit test
 
