@@ -10,6 +10,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCardModule } from "@angular/material/";
+import { MatSelectModule } from "@angular/material/";
+import {MatProgressBarModule} from '@angular/material/progress-bar'; 
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
@@ -67,6 +69,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatIconModule,
     MatMenuModule,
     MatFormFieldModule,
+    MatProgressBarModule,
+    MatSelectModule,
     FormsModule,
     HttpClientModule,
     MatToolbarModule,

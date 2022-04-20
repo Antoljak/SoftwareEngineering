@@ -16,6 +16,6 @@ describe('Example', function() {
         cy.get('.mat-icon').click()
         cy.get('.mat-menu-content > :nth-child(1)').click()
         cy.wait(500)
-        cy.contains('The archive is still under construction! Check back after sprint 3!')
+        cy.url().should('include', '/archive')
     })
 })
