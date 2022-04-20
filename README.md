@@ -13,6 +13,8 @@ A simple, quick, and easy to use note taking app hosted right on your web browse
 
 ## Project board link
 
+https://github.com/users/Praveena-H/projects/1
+
 ## Members
 **Front-end (Angular):**  Clayton Music, Fran Luka Antoljak
 
