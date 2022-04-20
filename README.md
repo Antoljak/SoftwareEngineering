@@ -1,24 +1,24 @@
 # Software Engineering - CEN5035 Spring 2022
 
 ## Application Overview
-A simple, quick, and easy to use note taking app hosted right on your web browser.
+Note-It is a simple, quick, and easy to use note taking app hosted right on your web browser. After logging in, users will be droped right into a well equipped text editor ready to capture the latest notes from physics class or Saturday's shopping list. Our colored tags allow users to keep their notes organized and can alwasys be changed later.
 
 ## Project Demo
 
 ## Cypress tests
-- Editing
+- Editing Note
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/edit_test.gif "Edit test")
-- Deleting
+- Deleting Note
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/delete_test.gif "Delete test")
-- Saving
+- Saving Note
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/save_test.gif "Save test")
 - Logout
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/logout_test.gif "Logout test")
-- Editor
+- Verifying CKEditor
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/editor_test.gif "Editor test")
-- Archive
+- Routing to Archive
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/archive_test.gif "Archive test")
-- Filter
+- Filtering Notes by Tag
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/filter_test.gif "Filter test")
 
 ## Backend unit test
@@ -33,6 +33,15 @@ https://github.com/users/Praveena-H/projects/1
 **Front-end (Angular):**  Clayton Music, Fran Luka Antoljak
 
 **Back-end (Golang):** Raul Salazar, Praveena Hariharan
+
+## How to build and run
+- Download our code
+- Open the project file in your favorite IDE (we prefer VS code)
+- Open a terminal and navigate to go-angular/webapp/ and enter
+''' ng serve '''
+- Open a new terminal, navigate to go-angular/server and enter
+''' go run main.go app.go '''
+- The app will be runnning on localhost:4200
 
 ## Sprint 1 Report
 
