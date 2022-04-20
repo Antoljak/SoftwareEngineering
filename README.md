@@ -5,7 +5,7 @@ Note-It is a simple, quick, and easy to use note taking app hosted right on your
 
 ## Project Demo
 
-## Cypress tests
+## Cypress Tests
 - Editing Note
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/edit_test.gif "Edit test")
 - Deleting Note
@@ -21,7 +21,18 @@ Note-It is a simple, quick, and easy to use note taking app hosted right on your
 - Filtering Notes by Tag
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/filter_test.gif "Filter test")
 
-## Backend unit test
+
+## Backend Unit Test
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/backend_unit_test.gif "Unit Testing")
+### Postman Test
+- Get All Notes
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/GetAllNotes.png)
+- Save Note
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/SaveNote.png)
+- Edit Note
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/EditNote.png)
+- Delete Note
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/DeleteNote.png)
 
 ## API Documentation
 
