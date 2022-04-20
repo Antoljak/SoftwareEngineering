@@ -1,4 +1,4 @@
-# Note-It Sprint 3 Overview
+# Note-It Sprint 4 Overview
 
 
 ## User SignUp
@@ -22,7 +22,9 @@
 ## Delete Note
 - User can delete an existing note by clicking on the 'DELETE' option in the corresponding Note Card in the Archive page. This hard deletes the note from Firestore.
 ![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/688b848cfce37661dc62226be47c6bbda02655d5/Demos/deleting.gif)
-
+## Filter Notes by Tag
+- Users can filter thier notes based on the tags they were given when they were saved. Tags can be edited just like note titles and content.
+![alt_text](LINK HERE RAUL)
 ## Cypress Testing
 - Saving
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/save_test.gif "Save test")
