@@ -25,18 +25,24 @@
 ## Filter Notes by Tag
 - Users can filter thier notes based on the tags they were given when they were saved. Tags can be edited just like note titles and content.
 ![alt_text](LINK HERE RAUL)
-## Cypress Testing
-- Saving
-![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/save_test.gif "Save test")
-- Editing
+
+## Cypress Tests
+- Editing Note
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/edit_test.gif "Edit test")
-- Filter
-![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/filter_test.gif "Filter test")
-- Deleting
+- Deleting Note
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/delete_test.gif "Delete test")
+- Saving Note
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/save_test.gif "Save test")
 - Logout
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/logout_test.gif "Logout test")
-## Backend Testing
+- Verifying CKEditor
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/editor_test.gif "Editor test")
+- Routing to Archive
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/archive_test.gif "Archive test")
+- Filtering Notes by Tag
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/filter_test.gif "Filter test")
+
+## Backend Unit Test
 ![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/backend_unit_test.gif "Unit Testing")
 ### Postman Test
 - Get All Notes
