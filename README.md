@@ -4,7 +4,7 @@
 Note-It is a simple, quick, and easy to use note taking app hosted right on your web browser. After logging in, users will be droped right into a well equipped text editor ready to capture the latest notes from physics class or Saturday's shopping list. Our colored tags allow users to keep their notes organized and can alwasys be changed later.
 
 ## Project Demo
-https://raw.githubusercontent.com/Praveena-H/SoftwareEngineering/dev-sprint-4/Demos/sprint4.mov
+https://raw.githubusercontent.com/Praveena-H/SoftwareEngineering/dev-sprint-4/Demos/sprint4comp.mp4
 
 ## Cypress Tests
 - Editing Note
