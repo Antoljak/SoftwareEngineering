@@ -38,6 +38,14 @@ https://user-images.githubusercontent.com/59617003/164132180-b630cc7a-5826-488d-
 
 ## API Documentation
 
+We used FirebaseUI for Managing Users and Authentication.
+Using FirebaseUI we can set up account for new users, handle authentication for registered users and logout functionalities.
+
+https://firebase.google.com/docs/auth/web/firebaseui
+
+For data storage, we used Firestore where user notes are Created, Retrieved, Updated and Deleted
+https://firebase.google.com/docs/firestore/quickstart
+
 ## Project board link
 
 https://github.com/users/Praveena-H/projects/1
