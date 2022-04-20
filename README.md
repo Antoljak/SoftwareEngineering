@@ -6,12 +6,12 @@ A simple, quick, and easy to use note taking app hosted right on your web browse
 ## Project Demo
 
 ## Cypress tests
-- Saving
-![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/save_test.gif "Save test")
 - Editing
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/edit_test.gif "Edit test")
 - Deleting
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/delete_test.gif "Delete test")
+- Saving
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/save_test.gif "Save test")
 - Logout
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/logout_test.gif "Logout test")
 - Editor
