@@ -34,13 +34,13 @@
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/logout_test.gif "Logout test")
 ## Backend Testing
 - Get All Notes
-![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/d7b317c3a8bf9f585c699bd25890ef148934f677/Demos/GetAllNotes.png)
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/GetAllNotes.png)
 - Save Note
-![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/b1aa7ef3c9b161b98c55847f1739f8bff358e842/Demos/SaveNote.png)
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/SaveNote.png)
 - Edit Note
-![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/b1aa7ef3c9b161b98c55847f1739f8bff358e842/Demos/EditNote.png)
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/EditNote.png)
 - Delete Note
-![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/b1aa7ef3c9b161b98c55847f1739f8bff358e842/Demos/DeleteNote.png)
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/DeleteNote.png)
 
 ## Technical Overview
 - Frontend - Angular 8
