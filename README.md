@@ -1,6 +1,31 @@
 # Software Engineering - CEN5035 Spring 2022
-## Note-It
+
+## Application Overview
 A simple, quick, and easy to use note taking app hosted right on your web browser.
+
+## Project Demo
+
+## Cypress tests
+- Editing
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/edit_test.gif "Edit test")
+- Deleting
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/delete_test.gif "Delete test")
+- Saving
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/save_test.gif "Save test")
+- Logout
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/logout_test.gif "Logout test")
+- Editor
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/editor_test.gif "Editor test")
+- Archive
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/archive_test.gif "Archive test")
+
+## Backend unit test
+
+## API Documentation
+
+## Project board link
+
+https://github.com/users/Praveena-H/projects/1
 
 ## Members
 **Front-end (Angular):**  Clayton Music, Fran Luka Antoljak
