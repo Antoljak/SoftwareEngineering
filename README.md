@@ -7,6 +7,21 @@ Note-It is a simple, quick, and easy to use note taking app hosted right on your
 https://user-images.githubusercontent.com/59617003/164132180-b630cc7a-5826-488d-8958-795da95538cd.mp4
 
 
+## API Documentation
+
+We used FirebaseUI for Managing Users and Authentication.
+Using FirebaseUI we can set up account for new users, handle authentication for registered users and logout functionalities.
+
+https://firebase.google.com/docs/auth/web/firebaseui
+
+For data storage, we used Firestore where user notes are Created, Retrieved, Updated and Deleted
+https://firebase.google.com/docs/firestore/quickstart
+
+## Project board link
+
+https://github.com/users/Praveena-H/projects/1
+
+
 ## Cypress Tests
 - Editing Note
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/edit_test.gif "Edit test")
@@ -36,20 +51,6 @@ https://user-images.githubusercontent.com/59617003/164132180-b630cc7a-5826-488d-
 - Delete Note
 ![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/DeleteNote.png)
 
-## API Documentation
-
-We used FirebaseUI for Managing Users and Authentication.
-Using FirebaseUI we can set up account for new users, handle authentication for registered users and logout functionalities.
-
-https://firebase.google.com/docs/auth/web/firebaseui
-
-For data storage, we used Firestore where user notes are Created, Retrieved, Updated and Deleted
-https://firebase.google.com/docs/firestore/quickstart
-
-## Project board link
-
-https://github.com/users/Praveena-H/projects/1
-
 ## Members
 **Front-end (Angular):**  Clayton Music, Fran Luka Antoljak
 
@@ -76,5 +77,6 @@ https://github.com/Praveena-H/SoftwareEngineering/blob/a99a06dc0946bc6f6687945ef
 https://github.com/Praveena-H/SoftwareEngineering/blob/22e4620210ed898904bab98d101cde843c575211/Sprint3.md
 
 ## Sprint 4 Report
+https://github.com/Praveena-H/SoftwareEngineering/blob/f41f4009819aa8d74d25e3ea9693285ccff99f10/Sprint4.md
 
 ### Starter Code from https://github.com/Shpota/go-angular
