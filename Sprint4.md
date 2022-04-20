@@ -5,10 +5,10 @@
 ![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/creatingWnewTag.gif)
 ## Delete Note with Confirmation
 - User can delete an existing note by clicking on the 'DELETE' option in the corresponding Note Card in the Archive page. In Sprint 4 we added confirmation to prevent accidental deletions. This hard deletes the note from Firestore.
-![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/688b848cfce37661dc62226be47c6bbda02655d5/Demos/deleteWconfirm.gif)
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/deleteWconfirm.gif)
 ## Filter Notes by Tag
 - Users can filter their notes based on the tags they were given when they were saved. Tags can be edited just like note titles and content.
-![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/688b848cfce37661dc62226be47c6bbda02655d5/Demos/filteringByTag.gif)
+![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/filteringByTag.gif)
 
 ## Cypress Tests
 - Editing Note
