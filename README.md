@@ -37,9 +37,9 @@ https://github.com/users/Praveena-H/projects/1
 ## How to build and run
 - Download our code
 - Open the project file in your favorite IDE (we prefer VS code)
-- Open a terminal and navigate to go-angular/webapp/ and enter
+- Open a terminal and navigate to go-angular\webapp\ and enter
 ``` ng serve ```
-- Open a new terminal, navigate to go-angular/server and enter
+- Open a new terminal, navigate to go-angular\server\ and enter
 ``` go run main.go app.go ```
 - The app will be runnning on localhost:4200
 
