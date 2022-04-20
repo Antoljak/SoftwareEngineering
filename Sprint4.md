@@ -27,11 +27,11 @@
 - Saving
 ![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/save_test.gif "Save test")
 - Editing
-![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/edit_test.gif "Edit test")
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/edit_test.gif "Edit test")
 - Deleting
-![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/delete_test.gif "Delete test")
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/delete_test.gif "Delete test")
 - Logout
-![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-3/Demos/logout_test.gif "Logout test")
+![alt text](https://github.com/Praveena-H/SoftwareEngineering/blob/dev-sprint-4/Demos/logout_test.gif "Logout test")
 ## Backend Testing
 - Get All Notes
 ![alt_text](https://github.com/Praveena-H/SoftwareEngineering/blob/d7b317c3a8bf9f585c699bd25890ef148934f677/Demos/GetAllNotes.png)
